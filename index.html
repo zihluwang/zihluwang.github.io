@@ -1,348 +1,173 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>编程精灵 - Programming Elf</title><meta name="author" content="Zihlu Wang"><meta name="copyright" content="Zihlu Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="编程精灵">
+<meta property="og:url" content="https://zihluwang.github.io/index.html">
+<meta property="og:site_name" content="编程精灵">
+<meta property="og:description" content="编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="Zihlu Wang">
+<meta property="article:tag" content="软件开发">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/image/favicon.ico"><link rel="canonical" href="https://zihluwang.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '编程精灵',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-01-30 01:50:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    
-    <title>王子路的主页</title>
-
-    <meta name="description" content="王子路的主页">
-    <meta name="keywords" content="软件开发,编程,Java,Go,Python">
-
-    
-
-
-
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content=""/>
-    <meta property="og:description" content=""/>
-    <meta property="og:locale" content="zh-CN" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://zihluwang.github.io/index.html" />
-    <meta property="og:site_name" content="Zihlu Wang" />
-    <meta property="article:publisher" content="" />
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "",
-            "description": "",
-            "publisher": {
-                "@type": "Organization",
-                "name": "Zihlu Wang"
-            },
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
         }
-    </script>
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
-
-
-    
-<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
-
-
-    <script>
-        window.isPost = false
-        window.aomori = {
-            
-            
-            
+        if (!itemStr) {
+          return undefined
         }
-        window.aomori_logo_typed_animated = false
-        window.aomori_search_algolia = false
+        const item = JSON.parse(itemStr)
+        const now = new Date()
 
-    </script>
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-
-    <div class="container">
-    <header class="header">
-        <div class="header-type">
-            
-            <div class="header-type-inner">
-                
-                    <a class="header-type-title" href="/">王子路的主页</a>
-                
-    
-                
-            </div>
-        </div>
-        <div class="header-menu">
-            <div class="header-menu-inner">
-                
-            </div>
-            <div class="header-menu-social">
-                
-            </div>
-        </div>
-
-        <div class="header-menu-mobile">
-            <div class="header-menu-mobile-inner" id="mobile-menu-open">
-                <i class="icon icon-menu"></i>
-            </div>
-        </div>
-    </header>
-
-    <div class="header-menu-mobile-menu">
-        <div class="header-menu-mobile-menu-bg"></div>
-        <div class="header-menu-mobile-menu-wrap">
-            <div class="header-menu-mobile-menu-inner">
-                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
-                    <i class="icon icon-cross"></i>
-                </div>
-                <div class="header-menu-mobile-menu-list">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-    <div class="container">
-        <div class="main">
-            <section class="inner">
-                <section class="inner-main">
-                    <div class="index">
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    
-      <article
-id="post-安装JDK"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2023/01/29/%E5%AE%89%E8%A3%85JDK/">安装JDK</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h1 id="本文章的一些特殊文法表述"><a href="#本文章的一些特殊文法表述" class="headerlink" title="本文章的一些特殊文法表述"></a>本文章的一些特殊文法表述</h1><p>为了保证您可以顺利使用这篇文章，此处先为您介绍一些本文可能用到的表述方式，您也可以选择先行阅读文章，遇到不确定的地方再回来查看其含义。</p>
-<ol>
-<li>对于所有的 <strong>shell</strong> 命令，本文将使用符号 <code>&gt;</code> 表示一条 shell 指令的开始，通常在终端中显示为 <code>$</code> 或 <code>#</code> 等字符。</li>
-<li>对于所有的 <strong>shell</strong> 命令，文章内的变量均采用 <code>$$variable</code> 的格式。</li>
-<li>对于所有的 <strong>shell</strong> 命令，如果该内容是<strong>根据情况可选</strong>的（即选填变量），那么将会用 <code>[expression]</code> 进行表述。</li>
-<li>对于所有的 <strong>shell</strong> 命令，如果该内容是<strong>根据情况调整数据</strong>的，那么将会用 <code>&lt;expression&gt;</code> 进行表述。</li>
-</ol>
-<h1 id="确定您的平台"><a href="#确定您的平台" class="headerlink" title="确定您的平台"></a>确定您的平台</h1><p>在进行操作前，您需要确认您所使用的平台。通常来说，平台由操作系统以及硬件架构组成，例如：</p>
-<ul>
-<li>windows-x86</li>
-<li>windows-x86_64</li>
-</ul>
-<p>在您确定了您的平台之后，您就可以开始选择您需要或喜欢的 Java 构建及版本。</p>
-<h1 id="确定您需要使用的版本"><a href="#确定您需要使用的版本" class="headerlink" title="确定您需要使用的版本"></a>确定您需要使用的版本</h1><p>**Java **是一种广泛使用的电脑<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>，擁有<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E5%B9%B3%E5%8F%B0">跨平台</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91">面向对象</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88">泛型程序设计</a>的特性，广泛应用于企业级Web应用开发和移动应用开发。 Java 语言自1995年诞生以来，受到了众多大型企业的欢迎。由于其开源的特性，任何企业与个人均可以对其进行修改，因此就产生了不同版本的 JDK 。总体来说，这些 JDK 均遵循 <strong>OpenJDK</strong> 标准。</p>
-<h2 id="现有的构建及版本"><a href="#现有的构建及版本" class="headerlink" title="现有的构建及版本"></a>现有的构建及版本</h2><blockquote>
-<p>由于构建过多，此处只列举较为知名的构建；JDK 的版本通常分为两种：长期支持版 LTS 以及非长期支持版，具体版本信息可参照<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Java_version_history">Java Version History</a></p>
-</blockquote>
-<ul>
-<li>由 Oracle 构建的 <a target="_blank" rel="noopener" href="https://www.oracle.com/java/">Oracle JDK</a> </li>
-<li>由 Microsoft 构建的 <a target="_blank" rel="noopener" href="https://www.microsoft.com/openjdk">Microsoft Build of OpenJDK</a></li>
-<li>由 Amazon 构建的 <a target="_blank" rel="noopener" href="https://aws.amazon.com/corretto">Amazon Corretto</a></li>
-<li>由 Eclipse 基金会构建的 <a target="_blank" rel="noopener" href="https://projects.eclipse.org/projects/adoptium.temurin">Eclipse Temurin</a></li>
-<li>由 Azul 构建的 <a target="_blank" rel="noopener" href="https://www.azul.com/downloads/?package=jdk">Zulu JDK</a></li>
-</ul>
-<blockquote>
-<p>除上述提到的构建之外，还有许多公司可能拥有其自行构建的可能是开源的基于 OpenJDK 进行修改的 JDK 版本，若您需要特定公司的开源版本的 OpenJDK ，您可以通过自行搜索关键词：&lt;公司名称&gt; + JDK，例如“腾讯公司 JDK”。</p>
-</blockquote>
-<p>在完成构建选择后，请您自行点击对应的链接进入其下载页面。</p>
-<h1 id="安装及配置"><a href="#安装及配置" class="headerlink" title="安装及配置"></a>安装及配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Windows-或-macOS-用户"><a href="#Windows-或-macOS-用户" class="headerlink" title="Windows 或 macOS 用户"></a>Windows 或 macOS 用户</h3><p>许多公司&#x2F;组织都提供其构建版本的 Windows 或 macOS 安装程序，您只需要运行其提供的安装程序即可成功在您的计算机中安装 JDK。</p>
-<h3 id="Linux-用户"><a href="#Linux-用户" class="headerlink" title="Linux 用户"></a>Linux 用户</h3><p>部分公司&#x2F;组织为特定的一部分 Linux 系统（如 Ubuntu 、 CentOS 等）提供了安装包，但是其余的并没有可以直接执行的安装包。此时您可以选择以 <code>.tar.gz</code> 或 <code>.tar.xz</code> 为后缀的文件进行下载，通常这是该公司&#x2F;组织提供的二进制可执行程序包，解压即可运行。在完成下载后，您可以直接解压这个压缩包以获得完整的二进制程序包。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在完成了上述安装步骤之后，我们需要将 Java 程序的安装路径设置到系统的环境变量中，通常这个变量以 <code>JAVA_HOME</code> 命名。</p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>根据 Linux 官方推荐，创建文件 <code>/etc/profile.d/java.sh</code> 并填写以下内容。</p>
-<pre><code class="shell">export JAVA_HOME=&lt;$$path_to_javahome&gt;
-export PATH=$PATH:$JAVA_HOME/bin
-</code></pre>
-<h3 id="macOS-gt-x3D-10-15-x"><a href="#macOS-gt-x3D-10-15-x" class="headerlink" title="macOS ( &gt;&#x3D; 10.15.x )"></a>macOS ( &gt;&#x3D; 10.15.x )</h3><p>根据 Apple 对系统的设计，您需要向文件 <code>/etc/zshrc</code> 中添加如下内容：</p>
-<pre><code class="shell">export JAVA_HOME=$(/usr/libexec/java_home -v &lt;$$java_version&gt;)
-</code></pre>
-<p>再创建文件 <code>/etc/paths.d/java</code> 并添加如下内容：</p>
-<pre><code class="shell">$JAVA_HOME/bin
-</code></pre>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>您需要进行以下步骤以完成 <code>JAVA_HOME</code> 的配置。</p>
-<blockquote>
-<p>以下内容图片均以 Windows 11 系统作为展示。</p>
-</blockquote>
-<ol>
-<li><p>使用鼠标右击<strong>此电脑</strong>，并在弹出的画面中点击<strong>属性</strong>选项。<br><img src="https://dist.cq.vorbote.cn/images/typora-images/image-20230129170845823.png" alt="image-20230129170845823"></p>
-</li>
-<li><p>在弹出的界面中点击<strong>高级系统设置</strong>。<br><img src="https://dist.cq.vorbote.cn/images/typora-images/image-20230129171127239.png" alt="image-20230129171127239"></p>
-</li>
-<li><p>在弹出的界面中点击<strong>环境变量设置</strong>。<br><img src="https://dist.cq.vorbote.cn/images/typora-images/image-20230129172304833.png" alt="image-20230129172304833"></p>
-</li>
-<li><p>在弹出的界面中点击任意一个<strong>新增</strong>。（上面的表格是<strong>用户环境变量</strong>，下面的表格是<strong>系统环境变量</strong>，如果需要让所有人访问则需要添加在<strong>系统环境变量</strong>）<br><img src="https://dist.cq.vorbote.cn/images/typora-images/image-20230129172527895.png" alt="image-20230129172527895"></p>
-</li>
-<li><p>在弹出的界面中输入对应的<strong>变量名</strong>及<strong>变量值</strong>。完成填写后点击<strong>确认</strong>以保存设置。<br><img src="https://dist.cq.vorbote.cn/images/typora-images/image-20230129172935189.png" alt="image-20230129172935189"></p>
-</li>
-<li><p>双击 <code>Path</code> ，请注意：一定要在第4步中点击的那一栏中寻找 <code>Path</code> ，并将如下文本添加到最末尾。</p>
-<pre><code class="shell">%JAVA_HOME%\bin
-</code></pre>
-</li>
-</ol>
-<h1 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h1><p>打开系统中的终端（Linux 或 macOS）或 PowerShell （Windows），并运行如下指令：</p>
-<pre><code class="shell">java -version
-</code></pre>
-<p>如果有类似如下格式的输出，则为安装成功。</p>
-<pre><code class="shell">openjdk version &quot;17.0.3&quot; 2022-04-19 LTS
-OpenJDK Runtime Environment Corretto-17.0.3.6.1 (build 17.0.3+6-LTS)
-OpenJDK 64-Bit Server VM Corretto-17.0.3.6.1 (build 17.0.3+6-LTS, mixed mode, sharing)
-</code></pre>
-
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2023-01-29T08:08:21.000Z" itemprop="datePublished">2023-01-29</time>
-</div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dev-Tools/" rel="tag">Dev Tools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDK/" rel="tag">SDK</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
   
-</div>
-
-                </section>
-            </section>
-
-            
-            <aside class="sidebar ">
-                
-
-
-<div class="widget" id="widget">
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-      
-    
-      
-
-    
-      
-  <div class="widget-wrap widget-tags">
-    <div class="widget-title"><span>Tags</span></div>
-    <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev-Tools/" rel="tag">Dev Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/" rel="tag">SDK</a></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget-wrap widget-recent-posts">
-    <div class="widget-title"><span>Recent Posts</span></div>
-    <div class="widget-inner">
-      <ul>
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <li>
-            <a href="/2023/01/29/%E5%AE%89%E8%A3%85JDK/">安装JDK</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-      
-  <div class="widget-wrap widget-archive">
-    <div class="widget-title"><span>Archive</span></div>
-    <div class="widget-inner">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
-    </div>
-  </div>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="编程精灵"><span class="site-name">编程精灵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">编程精灵</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/01/29/%E5%AE%89%E8%A3%85JDK/" title="安装JDK">安装JDK</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-29T08:08:21.000Z" title="发表于 2023-01-29 16:08:21">2023-01-29</time></span></div><div class="content">本文章的一些特殊文法表述为了保证您可以顺利使用这篇文章，此处先为您介绍一些本文可能用到的表述方式，您也可以选择先行阅读文章，遇到不确定的地方再回来查看其含义。
 
+对于所有的 shell 命令，本文将使用符号 &gt; 表示一条 shell 指令的开始，通常在终端中显示为 $ 或 # 等字符。
+对于所有的 shell 命令，文章内的变量均采用 $$variable 的格式。
+对于所有的 shell 命令，如果该内容是根据情况可选的（即选填变量），那么将会用 [expression] 进行表述。
+对于所有的 shell 命令，如果该内容是根据情况调整数据的，那么将会用 &lt;expression&gt; 进行表述。
 
-    
-</div>
+确定您的平台在进行操作前，您需要确认您所使用的平台。通常来说，平台由操作系统以及硬件架构组成，例如：
 
-<div id="backtop"><i class="icon icon-arrow-up"></i></div>
-            </aside>
-            
-        </div>
-    </div>
+windows-x86
+windows-x86_64
 
-    <footer class="footer">
-    <div class="footer-wave">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
-    </div>
-
-    <!-- Please do not remove this -->
-    <!-- 开源不易，请勿删除 -->
-    <div class="footer-wrap">
-        <div class="footer-inner"> 
-            王子路的主页 &copy; 2023<br>
-            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
-        </div>
-    </div>
-
-</footer>
-
-<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
-
-
-
-
-
-
-<script src="/dist/build.js?1654266144177.js"></script>
-
-
-<script src="/dist/custom.js?1654266144177.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-
-</html>
+在您确定了您的平台之后，您就可以开始选择您需要或喜欢的 Java 构建及版本。
+确定您需要使用的版本Java 是一种广泛使用的电脑编程语言，擁有跨平台、面向对象、泛型程序设计的特性，广泛应用于企业级Web应用开发和移 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zihlu Wang</div><div class="author-info__description">编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zihluwang"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家查看我的博客！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/01/29/%E5%AE%89%E8%A3%85JDK/" title="安装JDK">安装JDK</a><time datetime="2023-01-29T08:08:21.000Z" title="发表于 2023-01-29 16:08:21">2023-01-29</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Dev-Tools/" style="font-size: 1.1em; color: #999">Dev Tools</a> <a href="/tags/Java/" style="font-size: 1.1em; color: #999">Java</a> <a href="/tags/SDK/" style="font-size: 1.1em; color: #999">SDK</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-01-29T17:50:20.907Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Zihlu Wang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
