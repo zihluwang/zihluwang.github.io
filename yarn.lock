@@ -815,10 +815,10 @@ hexo-theme-aomori@^1.36.0:
     jquery-viewer "^1.0.1"
     viewerjs "^1.10.5"
 
-hexo-theme-butterfly@^4.6.1:
-  version "4.6.1"
-  resolved "https://registry.npmjs.org/hexo-theme-butterfly/-/hexo-theme-butterfly-4.6.1.tgz#d524180c969695b6013e598a603c78d2c83b8d51"
-  integrity sha512-qa/q2znq5H48AQOxgjZQGSlsBDP8znIr9RCPeDzjPSZOrO5LggmNaSnz9f34bPXzYHVmSOmm5p9J7bTbGbF0og==
+hexo-theme-butterfly@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/hexo-theme-butterfly/-/hexo-theme-butterfly-4.7.0.tgz#760776642f5deb5caf31ee935d5ffbdda9dad17d"
+  integrity sha512-g5LtCZptHcfTWjG2VLqup9OtYj1KQnhkDe3xAmQf9EnB8dsYyB69LA+WVnEwv2hYz7YyYhbUUxQh3l/oWVXtKA==
   dependencies:
     hexo-renderer-pug "^3.0.0"
     hexo-renderer-stylus "^2.1.0"
