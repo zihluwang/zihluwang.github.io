@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>在 Axios 中添加自定义请求头 | 编程精灵</title><meta name="author" content="Zihlu Wang"><meta name="copyright" content="Zihlu Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="今天开始写毕业设计的前端了，然后开始封装 Axios，代码如下： import axios, &amp;#123; AxiosRequestConfig &amp;#125; from &quot;axios&quot; import &amp;#123; ElMessage &amp;#125; from &quot;element-plus&quot; import &amp;#123; useDefaultStore &amp;#125;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Axios 中添加自定义请求头">
+<meta property="og:url" content="https://zihluwang.github.io/2023/03/23/add-custom-headers-in-axios/index.html">
+<meta property="og:site_name" content="编程精灵">
+<meta property="og:description" content="今天开始写毕业设计的前端了，然后开始封装 Axios，代码如下： import axios, &amp;#123; AxiosRequestConfig &amp;#125; from &quot;axios&quot; import &amp;#123; ElMessage &amp;#125; from &quot;element-plus&quot; import &amp;#123; useDefaultStore &amp;#125;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-03-23T14:12:51.000Z">
+<meta property="article:modified_time" content="2023-06-23T16:39:43.538Z">
+<meta property="article:author" content="Zihlu Wang">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="typescript">
+<meta property="article:tag" content="axios">
+<meta property="article:tag" content="upgrade">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/image/favicon.ico"><link rel="canonical" href="https://zihluwang.github.io/2023/03/23/add-custom-headers-in-axios/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在 Axios 中添加自定义请求头',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-06-24 00:39:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="编程精灵"><span class="site-name">编程精灵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">在 Axios 中添加自定义请求头</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-23T14:12:51.000Z" title="发表于 2023-03-23 22:12:51">2023-03-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-23T16:39:43.538Z" title="更新于 2023-06-24 00:39:43">2023-06-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title="在 Axios 中添加自定义请求头"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>今天开始写毕业设计的前端了，然后开始封装 Axios，代码如下：</p>
+<pre><code class="typescript">import axios, &#123; AxiosRequestConfig &#125; from &quot;axios&quot;
+import &#123; ElMessage &#125; from &quot;element-plus&quot;
+import &#123; useDefaultStore &#125; from &quot;@/stores/DefaultStore&quot;
+
+const axiosInstance = axios.create(&#123;
+  baseURL: &quot;http://192.168.2.51:9080&quot;,
+  timeout: 10_000
+&#125;)
+
+const defaultStore = useDefaultStore()
+
+axiosInstance.interceptors.request.use((config: AxiosRequestConfig&lt;unknown&gt;) =&gt; &#123;
+  const token = defaultStore.clientToken
+  config.headers = config.headers ?? &#123;&#125;
+  config.headers[&quot;X-AUTH-KEY&quot;] = token
+  return config
+&#125;, (error) =&gt; &#123;
+  return Promise.reject(error)
+&#125;)
+
+axiosInstance.interceptors.response.use((response) =&gt; &#123;
+  const resp = response.data
+
+  if (response.headers[&quot;x-auth-key&quot;]) &#123;
+    console.log(response.headers[&quot;x-auth-key&quot;])
+    defaultStore.changeClientToken(response.headers[&quot;x-auth-key&quot;])
+  &#125;
+
+  if (resp.code &gt;= 400 &amp;&amp; resp.code &lt; 600) &#123;
+    ElMessage(&#123;
+      type: &quot;error&quot;,
+      message: resp.message
+    &#125;)
+  &#125;
+  return resp
+&#125;, (error) =&gt; &#123;
+  return Promise.reject(error)
+&#125;)
+
+export default axiosInstance
+</code></pre>
+<p>结果，就在写的时候，发现了个大问题，在以往最常用的设置请求头的方法（也就是代码第15行），提示了两个错误，截图如下：</p>
+<p><img src="https://dist.cq.vorbote.cn/image/jpeg/EbzbJm-1679581395.jpg" alt="2023-03-23 22.22.39"></p>
+<p>大概翻译一下就是：</p>
+<ol>
+<li><code>config.headers</code> 这玩意儿可能为 <code>null</code> 或者 <code>undefined</code>，所以你记得处理它；</li>
+<li>设置数据的时候无法设置上了，直接报类型错误。</li>
+</ol>
+<p>我就纳闷了，没记错的话好像之前也是这样写的哈？于是我就去翻了一下以前的代码，确实是这样写的没错，那么问题到底在哪里呢？仔细看了一下，因为这是属于 TS 的报错，于是就怀疑是不是 TS 升级导致的，把这个项目的 TS代码给降级了回去，结果完全没用。</p>
+<p>再仔细检查，发现 axios 版本从0.x 升级到了 1.2.x，于是我当即就怀疑是 axios 升级做了重大修改导致，就开始在GitHub 上搜迁移指南（这玩意儿通常叫 MIGRATION_GUIDE 或 UPGRADE_GUIDE）。</p>
+<p>好消息是，找到了这个文件：</p>
+<p><img src="https://dist.cq.vorbote.cn/image/png/xqwHsA-1679581734.png" alt="image-20230323222854339"></p>
+<p>然后我高兴的打开一看：</p>
+<p><img src="https://dist.cq.vorbote.cn/image/png/pfCUCX-1679581887.png" alt="image-20230323223127299"></p>
+<p>好家伙，就这么一点点？然后就在 Discussion 里面找到了这个：</p>
+<p><img src="https://dist.cq.vorbote.cn/image/png/c6lFVf-1679581992.png" alt="image-20230323223312290"></p>
+<p>是的你们没看错，作者<strong>已经把文件夹建好了</strong>。</p>
+<p>没办法，只能降级到 0.x 先用着了，等迁移公告出来再考虑升级 1.x 吧～</p>
+<p>BTW，如果有人知道在 1.x 版本里面添加自定义请求头（我拒绝使用 <code>// @ts-ignore</code> 方式解决报错！），请务必告诉我，谢谢！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zihluwang.github.io">Zihlu Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zihluwang.github.io/2023/03/23/add-custom-headers-in-axios/">https://zihluwang.github.io/2023/03/23/add-custom-headers-in-axios/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zihluwang.github.io" target="_blank">编程精灵</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vue/">vue</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/typescript/">typescript</a><a class="post-meta__tags" href="/tags/axios/">axios</a><a class="post-meta__tags" href="/tags/upgrade/">upgrade</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/02/add-private-npmregestry/" title="添加私有 (p)npm 仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">添加私有 (p)npm 仓库</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/22/open-unraid-docker-remoteapi/" title="打开 unRaid 系统中 Docker 的 Remote API"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">打开 unRaid 系统中 Docker 的 Remote API</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zihlu Wang</div><div class="author-info__description">编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zihluwang"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><a target="_blank" rel="noopener" href="https://t.me/+4o6OAPrTrJ1lZjYx">点击链接加入 Telegram 群组</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/17/status-report/" title="不知道要说什么了">不知道要说什么了</a><time datetime="2023-06-17T12:02:39.000Z" title="发表于 2023-06-17 20:02:39">2023-06-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/07/JEP430-String-Template-in-Java/" title="JDK-21 新功能预览[JEP430] String Template">JDK-21 新功能预览[JEP430] String Template</a><time datetime="2023-04-07T13:14:18.000Z" title="发表于 2023-04-07 21:14:18">2023-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/02/add-private-npmregestry/" title="添加私有 (p)npm 仓库">添加私有 (p)npm 仓库</a><time datetime="2023-04-02T10:30:42.000Z" title="发表于 2023-04-02 18:30:42">2023-04-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/23/add-custom-headers-in-axios/" title="在 Axios 中添加自定义请求头">在 Axios 中添加自定义请求头</a><time datetime="2023-03-23T14:12:51.000Z" title="发表于 2023-03-23 22:12:51">2023-03-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/22/open-unraid-docker-remoteapi/" title="打开 unRaid 系统中 Docker 的 Remote API">打开 unRaid 系统中 Docker 的 Remote API</a><time datetime="2023-03-22T12:34:18.000Z" title="发表于 2023-03-22 20:34:18">2023-03-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Zihlu Wang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
