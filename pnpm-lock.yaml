@@ -1,16 +1,12 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   hexo:
     specifier: ^6.3.0
     version: 6.3.0
   hexo-deployer-git:
-    specifier: ^3.0.0
-    version: 3.0.0
+    specifier: ^4.0.0
+    version: 4.0.0
   hexo-generator-archive:
     specifier: ^2.0.0
     version: 2.0.0
@@ -27,7 +23,7 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   hexo-renderer-marked:
-    specifier: ^6.1.0
+    specifier: ^6.0.0
     version: 6.1.0
   hexo-renderer-stylus:
     specifier: ^2.1.0
@@ -39,7 +35,7 @@ dependencies:
     specifier: ^1.36.0
     version: 1.36.0
   hexo-theme-butterfly:
-    specifier: ^4.9.0
+    specifier: ^4.8.1
     version: 4.9.0
   hexo-theme-landscape:
     specifier: ^0.0.3
@@ -746,16 +742,16 @@ packages:
       tildify: 2.0.0
     dev: false
 
-  /hexo-deployer-git@3.0.0:
-    resolution: {integrity: sha512-U2Xewjab+rvUDNTcuYYnOxitkDXL3f5VMUH32jKDHs3OC4YFVGRoEaTTDVHskqr3KRi78Wohjc6BSRHOoG3oxA==}
-    engines: {node: '>=8.6.0'}
+  /hexo-deployer-git@4.0.0:
+    resolution: {integrity: sha512-28t1Q+4taB/UaBAP52W3mD/wcCwa2y2zBieUfBJFBZudbmVgiKJB5YedYILeyI5QByaUKAOwoupmdTbocdQ+CQ==}
+    engines: {node: '>=14'}
     dependencies:
       bluebird: 3.7.2
-      chalk: 4.1.2
-      hexo-fs: 3.1.0
+      hexo-fs: 4.1.1
       hexo-util: 2.7.0
-      moment: 2.29.4
+      luxon: 3.3.0
       nunjucks: 3.2.4
+      picocolors: 1.0.0
     transitivePeerDependencies:
       - chokidar
     dev: false
@@ -1254,6 +1250,11 @@ packages:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
       tslib: 2.5.3
+    dev: false
+
+  /luxon@3.3.0:
+    resolution: {integrity: sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==}
+    engines: {node: '>=12'}
     dev: false
 
   /marked@4.3.0:
@@ -2039,3 +2040,7 @@ packages:
   /xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
