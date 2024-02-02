@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>将 Java 类库由 Maven 转换为 Gradle | 编程精灵</title><meta name="author" content="Zihlu Wang"><meta name="copyright" content="Zihlu Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="将 Java 类库由 Maven 转换为 Gradle Gradle 版本为 Gradle 8.5。 本文所使用的示例代码均可在 GitHub 上查看  创建 settings.gradle.kts 文件及 build.gradle.kts 文件在项目根目录下创建 settings.gradle.kts 及 build.gradle.kts 文件，并在 settings.gradle.kts 文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将 Java 类库由 Maven 转换为 Gradle">
+<meta property="og:url" content="https://zihlu.wang/2024/02/01/migrate-from-maven-to-gradle/index.html">
+<meta property="og:site_name" content="编程精灵">
+<meta property="og:description" content="将 Java 类库由 Maven 转换为 Gradle Gradle 版本为 Gradle 8.5。 本文所使用的示例代码均可在 GitHub 上查看  创建 settings.gradle.kts 文件及 build.gradle.kts 文件在项目根目录下创建 settings.gradle.kts 及 build.gradle.kts 文件，并在 settings.gradle.kts 文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-02-01T04:48:03.000Z">
+<meta property="article:modified_time" content="2024-02-02T05:36:13.783Z">
+<meta property="article:author" content="Zihlu Wang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Build Tools">
+<meta property="article:tag" content="Gradle">
+<meta property="article:tag" content="Maven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/image/favicon.ico"><link rel="canonical" href="https://zihlu.wang/2024/02/01/migrate-from-maven-to-gradle/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '将 Java 类库由 Maven 转换为 Gradle',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-02 13:36:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="编程精灵"><span class="site-name">编程精灵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">将 Java 类库由 Maven 转换为 Gradle</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-01T04:48:03.000Z" title="发表于 2024-02-01 12:48:03">2024-02-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-02T05:36:13.783Z" title="更新于 2024-02-02 13:36:13">2024-02-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title="将 Java 类库由 Maven 转换为 Gradle"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="将-Java-类库由-Maven-转换为-Gradle"><a href="#将-Java-类库由-Maven-转换为-Gradle" class="headerlink" title="将 Java 类库由 Maven 转换为 Gradle"></a>将 Java 类库由 Maven 转换为 Gradle</h1><blockquote>
+<p>Gradle 版本为 Gradle 8.5。</p>
+<p>本文所使用的示例代码均可在 <a target="_blank" rel="noopener" href="https://github.com/zihluwang/migrate-to-gradle-sample">GitHub</a> 上查看</p>
+</blockquote>
+<h2 id="创建-settings-gradle-kts-文件及-build-gradle-kts-文件"><a href="#创建-settings-gradle-kts-文件及-build-gradle-kts-文件" class="headerlink" title="创建 settings.gradle.kts 文件及 build.gradle.kts 文件"></a>创建 <code>settings.gradle.kts</code> 文件及 <code>build.gradle.kts</code> 文件</h2><p>在项目根目录下创建 <code>settings.gradle.kts</code> 及 <code>build.gradle.kts</code> 文件，并在 settings.gradle.kts 文件中对项目进行创建。</p>
+<h3 id="settings-gradle-kts"><a href="#settings-gradle-kts" class="headerlink" title="settings.gradle.kts"></a><code>settings.gradle.kts</code></h3><pre><code class="kotlin">rootProject.name = &quot;project_name&quot;
+
+// 如果你的项目包含了多个模块，请使用下面的脚本。
+include(&quot;path/to/sub-module&quot;, ...)
+</code></pre>
+<h3 id="build-gradle-kts"><a href="#build-gradle-kts" class="headerlink" title="build.gradle.kts"></a><code>build.gradle.kts</code></h3><p>你需要在这个文件中定义项目的构建情况，例如使用的插件、使用的依赖等等。在此时你可以仅创建该文件，<strong>无需在里面声明构建脚本</strong>。</p>
+<h2 id="下载-Gradle-Wrapper"><a href="#下载-Gradle-Wrapper" class="headerlink" title="下载 Gradle Wrapper"></a>下载 Gradle Wrapper</h2><p>在项目根目录使用命令 <code>gradle wrapper</code> 下载 <strong>Gradle Wrapper</strong>。由于 Gradle 每个版本的 API 都可能有重大变化，因此强烈推荐使用 Gradle Wrapper 来作为构建工具。直接使用该指令将会默认使用您本地安装的 Gradle 版本作为 Wrapper。【可选】如果您对其使用的默认版本不满意，也可以再次使用命令 <code>gradle wrapper --gradle-version &lt;一个 Gradle 版本号&gt;</code> 来安装指定版本的 Gradle Wrapper。</p>
+<h2 id="在-Gradle-User-Home-下创建-gradle-properties-文件"><a href="#在-Gradle-User-Home-下创建-gradle-properties-文件" class="headerlink" title="在 Gradle User Home 下创建 gradle.properties 文件"></a>在 Gradle User Home 下创建 gradle.properties 文件</h2><p>该文件的主要目的是配置无法公布到公共代码库的一些机密信息，例如由 Sonatype 代管的 Maven Central Nexus 服务器的用户名和密码等等。你需要使用 <code>key=value</code> 的格式声明你的用户名和密码。</p>
+<blockquote>
+<p>此处我们假定您需要将构建出的文件发布到 Maven Central 库。</p>
+</blockquote>
+<p>一份示例 <code>gradle.properties</code> 文件如下：</p>
+<pre><code class="properti">repo.ossrh.host=https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+repo.ossrh.username=sample_user
+repo.ossrh.password=sample_passcode
+</code></pre>
+<p>此处使用了带有 <code>.</code> 形式的 key，你也可以根据自己的情况选择使用驼峰式的 key。</p>
+<p>如果您需要将您的 artifact 签名，请在此文件内添加如下 key：</p>
+<ul>
+<li><code>signing.keyId</code>：GPG 密钥 ID 的后 8 位</li>
+<li><code>signing.password</code>：您密钥的访问密码</li>
+<li><code>signing.secretKeyRingFile</code>：GPG 私钥的路径，可以使用 <code>gpg --export-secret-keys -o &lt;path/to/secretKeyRingFile&gt;</code> 导出。</li>
+</ul>
+<h2 id="配置构建脚本"><a href="#配置构建脚本" class="headerlink" title="配置构建脚本"></a>配置构建脚本</h2><h3 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h3><p>Gradle 是一款依赖于 Task 的构建工具，使用插件可以将一些预定义的 Task 添加至您的项目中。对于一个 Java 项目，可以使用如下的代码来声明使用 Java 插件。</p>
+<pre><code class="kotlin">plugins &#123;
+  id(&quot;java&quot;)
+  // 或
+  java
+&#125;
+</code></pre>
+<p>如果您还需要一些其他预定义的 Task 来执行您的构建，请前往 <a target="_blank" rel="noopener" href="https://plugins.gradle.org/">Gradle Plugins 官网</a>查询。</p>
+<p>如果您开发的是 Java 类库，可以直接使用以下的配置。</p>
+<pre><code class="kotlin">plugins &#123;
+  id(&quot;java&quot;)
+  id(&quot;java-library&quot;)
+  id(&quot;maven-publish&quot;)
+  id(&quot;signing&quot;)
+&#125;
+</code></pre>
+<h3 id="配置-Java-版本以及是否要构建-javadoc-及-sources-包"><a href="#配置-Java-版本以及是否要构建-javadoc-及-sources-包" class="headerlink" title="配置 Java 版本以及是否要构建 javadoc 及 sources 包"></a>配置 Java 版本以及是否要构建 javadoc 及 sources 包</h3><p>使用以下指令配置您项目的 Java 版本。</p>
+<pre><code class="kotlin">java &#123;
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+      withJavadocJar() // 使用此命令构建 Javadoc 包
+    withSourcesJar() // 使用此命令构建 sources 包
+&#125;
+</code></pre>
+<h3 id="【可选】配置项目的编译时的字符集"><a href="#【可选】配置项目的编译时的字符集" class="headerlink" title="【可选】配置项目的编译时的字符集"></a>【可选】配置项目的编译时的字符集</h3><pre><code class="kotlin">tasks.withType&lt;JavaCompile&gt; &#123;
+    options.encoding = &quot;UTF-8&quot;
+&#125;
+</code></pre>
+<h3 id="【可选】声明-Maven-远程仓库"><a href="#【可选】声明-Maven-远程仓库" class="headerlink" title="【可选】声明 Maven 远程仓库"></a>【可选】声明 Maven 远程仓库</h3><pre><code class="kotlin">repositories &#123;
+  mavenLocal()
+  maven(url = &quot;https://codecrafters.coding.net/public-artifacts/base/public/packages/&quot;)
+  maven(url = &quot;https://maven.proxy.ustclug.org.cn/maven2/&quot;)
+  mavenCentral()
+&#125;
+</code></pre>
+<h3 id="配置依赖"><a href="#配置依赖" class="headerlink" title="配置依赖"></a>配置依赖</h3><h4 id="如何配置依赖"><a href="#如何配置依赖" class="headerlink" title="如何配置依赖"></a>如何配置依赖</h4><p>在 Gradle 中，虽仍然采用了 Maven 中的 gav 定位法，但是格式产生了很大的变化。首先，在 Gradle 的配置中，gav 可以直接采用 <code>&quot;groupId:artifactId:version&quot;</code> 的方式声明，例如</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.18.30&lt;/version&gt;
+  &lt;scope&gt;compile&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="kotlin">dependencies &#123;
+  compileOnly(&quot;org.projectlombok:lombok:1.18.30&quot;)
+&#125;
+</code></pre>
+<h4 id="理解-Gradle-依赖中的各种-scope"><a href="#理解-Gradle-依赖中的各种-scope" class="headerlink" title="理解 Gradle 依赖中的各种 scope"></a>理解 Gradle 依赖中的各种 scope</h4><blockquote>
+<p> 请参考 <a target="_blank" rel="noopener" href="https://reflectoring.io/maven-scopes-gradle-configurations">Maven Scope and Gradle Configurations</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/zh452647457/article/details/108772045">Maven scope 与 Gradle scope - by herionZhang@CSDN</a>、</p>
+</blockquote>
+<h4 id="【可选】对依赖关系进行配置"><a href="#【可选】对依赖关系进行配置" class="headerlink" title="【可选】对依赖关系进行配置"></a>【可选】对依赖关系进行配置</h4><pre><code class="kotlin">configurations &#123;
+  compileOnly &#123;
+    extendsFrom(annotationProcessor.get())
+  &#125;
+&#125;
+</code></pre>
+<h3 id="【可选】配置发布脚本"><a href="#【可选】配置发布脚本" class="headerlink" title="【可选】配置发布脚本"></a>【可选】配置发布脚本</h3><pre><code class="kotlin">publishing &#123;
+    publications &#123;
+        create&lt;MavenPublication&gt;(&quot;&lt;name_of_this_publication&gt;&quot;) &#123;
+            groupId = &quot;&lt;your group id&gt;&quot;
+            artifactId = &quot;&lt;your artifact id&gt;&quot;
+            version = &quot;&lt;your version&gt;&quot;
+
+            pom &#123;
+                // 定义生成的 POM 文件
+                name = &quot;&lt;artifact name&gt;&quot;
+                description = &quot;&lt;artifact description&gt;&quot;
+                url = &quot;&lt;artifact home page&gt;&quot;
+
+                licenses &#123;
+                    license &#123;
+                        name = &quot;&lt;licence name&gt;&quot;
+                        url = &quot;&lt;license link&gt;&quot;
+                    &#125;
+                &#125;
+                
+                scm &#123;
+                    connection = &quot;&lt;scm connection&gt;&quot;
+                    developerConnection = &quot;&lt;developer connection&gt;&quot;
+                    url = &quot;project source code url&quot;
+                &#125;
+
+                developers &#123;
+                    developer &#123;
+                        id = &quot;&lt;developer id&gt;&quot;
+                        name = &quot;&lt;developer name&gt;&quot;
+                        email = &quot;&lt;developer&#39;s email&gt;&quot;
+                        timezone = &quot;&lt;developer&#39;s timezone&gt;&quot;
+                    &#125;
+                &#125;
+            &#125;
+
+            from(components[&quot;java&quot;]) // 这一行表示需要发布 jar 包
+
+            // 如果不需要签名可以把这一段去掉
+            signing &#123;
+                sign(publishing.publications[&quot;&lt;name_of_this_publication&gt;&quot;])
+            &#125;
+        &#125;
+
+        repositories &#123;
+            // 在这里配置你的目标仓库，可以有多个
+            maven &#123; // 这是 Maven 中央仓库的示例
+                name = &quot;sonatypeNexus&quot;
+                url = URI(providers.gradleProperty(&quot;repo.ossrh.host&quot;).get())
+                credentials &#123;
+                    username = providers.gradleProperty(&quot;repo.ossrh.username&quot;).get()
+                    password = providers.gradleProperty(&quot;repo.ossrh.password&quot;).get()
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="【可选】删除-pom-xml-文件"><a href="#【可选】删除-pom-xml-文件" class="headerlink" title="【可选】删除 pom.xml 文件"></a>【可选】删除 pom.xml 文件</h2><p>如果您的库不准备继续使用 Maven 作为构建工具，此时您就可以大胆放心的删除 <code>pom.xml</code> 文件了！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zihlu.wang">Zihlu Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zihlu.wang/2024/02/01/migrate-from-maven-to-gradle/">https://zihlu.wang/2024/02/01/migrate-from-maven-to-gradle/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zihlu.wang" target="_blank">编程精灵</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Build-Tools/">Build Tools</a><a class="post-meta__tags" href="/tags/Gradle/">Gradle</a><a class="post-meta__tags" href="/tags/Maven/">Maven</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/31/install-gradle/" title="安装 Gradle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装 Gradle</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/01/31/install-gradle/" title="安装 Gradle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-31</div><div class="title">安装 Gradle</div></div></a></div><div><a href="/2023/01/29/install-jdk/" title="安装 JDK"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="title">安装 JDK</div></div></a></div><div><a href="/2023/01/30/install-maven/" title="安装 Maven"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-30</div><div class="title">安装 Maven</div></div></a></div><div><a href="/2023/04/07/jep430-string-templates-in-java/" title="JDK-21 新功能预览[JEP430] String Template"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-07</div><div class="title">JDK-21 新功能预览[JEP430] String Template</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zihlu Wang</div><div class="author-info__description">编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zihluwang"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><a target="_blank" rel="noopener" href="https://t.me/+4o6OAPrTrJ1lZjYx">点击链接加入 Telegram 群组</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86-Java-%E7%B1%BB%E5%BA%93%E7%94%B1-Maven-%E8%BD%AC%E6%8D%A2%E4%B8%BA-Gradle"><span class="toc-number">1.</span> <span class="toc-text">将 Java 类库由 Maven 转换为 Gradle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-settings-gradle-kts-%E6%96%87%E4%BB%B6%E5%8F%8A-build-gradle-kts-%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">创建 settings.gradle.kts 文件及 build.gradle.kts 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#settings-gradle-kts"><span class="toc-number">1.1.1.</span> <span class="toc-text">settings.gradle.kts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#build-gradle-kts"><span class="toc-number">1.1.2.</span> <span class="toc-text">build.gradle.kts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-Gradle-Wrapper"><span class="toc-number">1.2.</span> <span class="toc-text">下载 Gradle Wrapper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Gradle-User-Home-%E4%B8%8B%E5%88%9B%E5%BB%BA-gradle-properties-%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">在 Gradle User Home 下创建 gradle.properties 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC"><span class="toc-number">1.4.</span> <span class="toc-text">配置构建脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">配置插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Java-%E7%89%88%E6%9C%AC%E4%BB%A5%E5%8F%8A%E6%98%AF%E5%90%A6%E8%A6%81%E6%9E%84%E5%BB%BA-javadoc-%E5%8F%8A-sources-%E5%8C%85"><span class="toc-number">1.4.2.</span> <span class="toc-text">配置 Java 版本以及是否要构建 javadoc 及 sources 包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%BC%96%E8%AF%91%E6%97%B6%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">1.4.3.</span> <span class="toc-text">【可选】配置项目的编译时的字符集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E5%A3%B0%E6%98%8E-Maven-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">1.4.4.</span> <span class="toc-text">【可选】声明 Maven 远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BE%9D%E8%B5%96"><span class="toc-number">1.4.5.</span> <span class="toc-text">配置依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E4%BE%9D%E8%B5%96"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">如何配置依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-Gradle-%E4%BE%9D%E8%B5%96%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D-scope"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">理解 Gradle 依赖中的各种 scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E5%AF%B9%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.5.3.</span> <span class="toc-text">【可选】对依赖关系进行配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E9%85%8D%E7%BD%AE%E5%8F%91%E5%B8%83%E8%84%9A%E6%9C%AC"><span class="toc-number">1.4.6.</span> <span class="toc-text">【可选】配置发布脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E5%88%A0%E9%99%A4-pom-xml-%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.</span> <span class="toc-text">【可选】删除 pom.xml 文件</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/01/migrate-from-maven-to-gradle/" title="将 Java 类库由 Maven 转换为 Gradle">将 Java 类库由 Maven 转换为 Gradle</a><time datetime="2024-02-01T04:48:03.000Z" title="发表于 2024-02-01 12:48:03">2024-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/31/install-gradle/" title="安装 Gradle">安装 Gradle</a><time datetime="2024-01-31T11:07:00.000Z" title="发表于 2024-01-31 19:07:00">2024-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/28/install-local-dns-server/" title="安装本地 DNS 服务器">安装本地 DNS 服务器</a><time datetime="2023-06-28T02:45:56.000Z" title="发表于 2023-06-28 10:45:56">2023-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/07/jep430-string-templates-in-java/" title="JDK-21 新功能预览[JEP430] String Template">JDK-21 新功能预览[JEP430] String Template</a><time datetime="2023-04-07T13:14:18.000Z" title="发表于 2023-04-07 21:14:18">2023-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/02/add-private-npmregestry/" title="添加私有 (p)npm 仓库">添加私有 (p)npm 仓库</a><time datetime="2023-04-02T10:30:42.000Z" title="发表于 2023-04-02 18:30:42">2023-04-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zihlu Wang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
