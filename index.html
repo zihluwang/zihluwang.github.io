@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>编程精灵 - Programming Elf</title><meta name="author" content="Zihlu Wang"><meta name="copyright" content="Zihlu Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="编程精灵">
+<meta property="og:url" content="https://zihlu.wang/index.html">
+<meta property="og:site_name" content="编程精灵">
+<meta property="og:description" content="编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="Zihlu Wang">
+<meta property="article:tag" content="软件开发">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/image/favicon.ico"><link rel="canonical" href="https://zihlu.wang/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '编程精灵',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-11-10 18:10:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="编程精灵"><span class="site-name">编程精灵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">编程精灵</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/11/10/java-code-optimisations/" title="Java Code Optimisations">Java Code Optimisations</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-11-10T10:03:15.000Z" title="发表于 2024-11-10 18:03:15">2024-11-10</time></span></div><div class="content">Java Codes OptimisationsEnum OperationOriginal// Operation.java
+public enum Operation &#123;
+  ADD,
+  SUBTRACT;
+&#125;
+
+// Calculator.java
+public class Calculator &#123;
+  public double eval(double a, double b, Operation operation) &#123;
+    if (Operation.ADD.equals(operation)) &#123;
+      return a + b;
+    &#125; else if (Operation.SUBTRACT.equals(operation)) &#123;
+      return a - b;
+    &#125; else &#123;
+      throw new IllegalStateException(&quot;Illegal operand.&quot;);
+    &#125;
+  &#1 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/02/27/mac-terminal-hostname-displayed-as-10-172-or-192/" title="Mac 终端的主机名显示10，172或192">Mac 终端的主机名显示10，172或192</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-02-27T07:35:12.000Z" title="发表于 2024-02-27 15:35:12">2024-02-27</time></span></div><div class="content">按理来说，Mac 中的终端开头在默认情况下应显示为 yourname@computer-name，但是经常会变成 10、172 或 192 的情况。这是因为你没有设置电脑的主机名时，会自动使用 DNS 或 DHCP 的名称来作为电脑的主机名。解决这个问题有两种处理方法。
+
+使用公共 DNS 服务。在 Mac 的网络配置中使用公网中的 DNS 地址即可解决该问题。
+如果你是开发人员，需要自定义一些 DNS 解析策略，可以采用下面的命令来解决该问题：sudo scutil --set HostName $(scutil --get ComputerName)
+
+ $(scutil --get ComputerName) 处也可以换成 &#39;任意你喜欢的名称&#39;。
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/02/01/migrate-from-maven-to-gradle/" title="将 Java 类库由 Maven 转换为 Gradle">将 Java 类库由 Maven 转换为 Gradle</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-02-01T04:48:03.000Z" title="发表于 2024-02-01 12:48:03">2024-02-01</time></span></div><div class="content">将 Java 类库由 Maven 转换为 Gradle
+Gradle 版本为 Gradle 8.5。
+本文所使用的示例代码均可在 GitHub 上查看
+
+创建 settings.gradle.kts 文件及 build.gradle.kts 文件在项目根目录下创建 settings.gradle.kts 及 build.gradle.kts 文件，并在 settings.gradle.kts 文件中对项目进行创建。
+settings.gradle.ktsrootProject.name = &quot;project_name&quot;
+
+// 如果你的项目包含了多个模块，请使用下面的脚本。
+include(&quot;path/to/sub-module&quot;, ...)
+
+build.gradle.kts你需要在这个文件中定义项目的构建情况，例如使用的插件、使用的依赖等等。在此时你可以仅创建该文件，无需在里面声明构建脚本。
+下载 Gradle Wrapper在项目根目录使用命令 gradle wrapper 下载 Gradle Wrapper。由于 Gradle 每个版本的 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/31/install-gradle/" title="安装 Gradle">安装 Gradle</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-01-31T11:07:00.000Z" title="发表于 2024-01-31 19:07:00">2024-01-31</time></span></div><div class="content">安装 Gradle
+本文使用的 Gradle 版本为 8.5
+
+
+确保你的电脑已经安装并配置好 Java （version &ge; 8）。
+
+从 Gradle 官方网站 - Releases 页面选择对应的版本进行下载。
+官网如下图所示，选择 binary-only 和 complete 皆可。
+
+
+下载完成后，将 .zip 压缩包解压缩后放在任意位置（本文以 /path/to/gradle 指代 gradle 解压后的目录）。
+解压后的目录有如下文件：
+
+
+配置 GRADLE_HOME 与 GRADLE_USER_HOME 目录。
+GRADLE_HOME 是 Gradle 的安装目录，而 GRADLE_USER_HOME 则是用于存放 Gradle 所需的文件的路径，本文以 Gradle 的默认路径，即 ~/.gradle，此路径也是不配置 GRADLE_USER_HOME 系统环境变量时的默认值。
+
+
+【可选】对 Gradle 进行配置如果需要对 Gradle 进行配置，可以通过初始化脚本的方式。Gradle 会按照如下优先级对项目进行配置：
+
+通过命令行的 -I 或 --ini ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/06/28/install-local-dns-server/" title="安装本地 DNS 服务器">安装本地 DNS 服务器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-28T02:45:56.000Z" title="发表于 2023-06-28 10:45:56">2023-06-28</time></span></div><div class="content">安装本地 DNS 服务器的好处通常，需要为本地服务器配置域名都是以修改 hosts 文件进行的，但是在手机上并不方便修改 hosts 文件。
+要在无法修改 hosts 文件的情况下做到域名解析，就只能依靠 DNS 服务。
+采用的方案
+DNSMasq
+
+安装步骤检查环境由于 DNSMasq 预编译版本仅提供 Linux 环境下的二进制包，因此如果选择在 Windows 系统上安装这个环境，Docker 就成了最佳实践方案。
+首先，你需要先找到你想使用的 Docker 镜像，作者以 jpillora/dnsmasq 这个镜像为例。
+下载 Docker 镜像在 PowerShell 中运行命令 
+docker pull jpillora/dnsmasq
+
+准备文件与路径在一个你喜欢的地方（后续以 &lt;path/to/dnsmasq/home&gt; 代替），新建文件夹 conf.d 和文件 dnsmasq.conf。
+配置 DNSMasq在 &lt;path/to/dnsmasq/home&gt;/dnsmasq.conf 文件夹中进行配置：
+# dnsmasq config, for  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/04/07/jep430-string-templates-in-java/" title="JDK-21 新功能预览[JEP430] String Template">JDK-21 新功能预览[JEP430] String Template</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-04-07T13:14:18.000Z" title="发表于 2023-04-07 21:14:18">2023-04-07</time></span></div><div class="content">JDK-21 新功能预览 - 模板字符串 ([JEP430])
+本文章内容为搬运，原文请见 JEP430 - String Template
+
+
+
+
+Property
+Value
+
+
+
+Owner
+Jim Laskey
+
+
+Type
+Feature
+
+
+Scope
+SE
+
+
+Status
+Proposed to Target
+
+
+Release
+21
+
+
+Component
+specification &#x2F; language
+
+
+Discussion
+amber dash dev at openjdk dot org
+
+
+Effort
+M
+
+
+Duration
+M
+
+
+Reviewed by
+Alex Buckley, Brian Goetz, Maurizio Cimadamore
+
+
+Endorsed by
+Brian Goetz
+
+
+Created
+2021&#x2F;09&#x2F;17 13:41
+
+
+Updated
+2023&#x2F;04&#x2F;06 21:41
+
+
+Issue
+8273943
+
+
+SummaryEnhance the Java program ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/04/02/add-private-npmregestry/" title="添加私有 (p)npm 仓库">添加私有 (p)npm 仓库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-04-02T10:30:42.000Z" title="发表于 2023-04-02 18:30:42">2023-04-02</time></span></div><div class="content">环境定义Windows 11 22H2 x64
+Node.js 16.17.1
+npm 8.15.0 | pnpm 7.29.0
+
+文档定义
+对于所有的 Shell 代码，均使用 [expression] 表示该表达式为可选变量。
+对于所有的 Shell 代码，均使用 &lt;expression&gt; 表示该表达式为必填变量。
+
+一、命令行修改npm config set @&lt;my_scoped&gt;:registry &lt;registry_url&gt;
+
+使用上述代码请注意：
+如下图所示，可以看到获取属性值能获取到便是运行成功
+
+二、直接修改文件使用命令行修改config配置其实就是在修改~/.npmrc文件，所以我们直接使用文本编辑器打开该文件添加如下数据之后保存关闭即可
+@my-scoped:registry=http://www.baidu.com
+
+需要注意的是：
+
+my-scoped只是一个代称，请将其替换成真实的名称，例如@my-npm:register
+http://www.baidu.com只是一个代称，请将其替换成真实的仓库地址，例如http:// ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/03/23/add-custom-headers-in-axios/" title="在 Axios 中添加自定义请求头">在 Axios 中添加自定义请求头</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-23T14:12:51.000Z" title="发表于 2023-03-23 22:12:51">2023-03-23</time></span></div><div class="content">今天开始写毕业设计的前端了，然后开始封装 Axios，代码如下：
+import axios, &#123; AxiosRequestConfig &#125; from &quot;axios&quot;
+import &#123; ElMessage &#125; from &quot;element-plus&quot;
+import &#123; useDefaultStore &#125; from &quot;@/stores/DefaultStore&quot;
+
+const axiosInstance = axios.create(&#123;
+  baseURL: &quot;http://192.168.2.51:9080&quot;,
+  timeout: 10_000
+&#125;)
+
+const defaultStore = useDefaultStore()
+
+axiosInstance.interceptors.request.use((config: AxiosRequestConfig&lt;unknown&gt;) =&gt; &#123;
+  con ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/03/22/open-unraid-docker-remoteapi/" title="打开 unRaid 系统中 Docker 的 Remote API">打开 unRaid 系统中 Docker 的 Remote API</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-22T12:34:18.000Z" title="发表于 2023-03-22 20:34:18">2023-03-22</time></span></div><div class="content">今天需要将一个 Java 项目部署到 Docker 上，奈何本地 Docker 是运行在 unRaid 系统上的。
+通过查阅资料，发现开启方法可以使用在 daemon.json 中设置，于是便前往修改 \\$NAS_IP\flash\config\go 文件如下：
+mkdir -p /etc/docker
+
+tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+
+&#123;
+  &quot;registry-mirrors&quot;: [
+    &quot;https://docker.mirrors.ustc.edu.cn/&quot;
+  ],
+  &quot;hosts&quot;: [
+    &quot;tcp://0.0.0.0:2375&quot;,
+    &quot;unix:///var/run/docker.sock&quot;
+  ]
+&#125;
+
+EOF
+
+这样即可打开 Docker 的 2375 Remote API 端口。
+
+2375 Remote API 端口是不需要用户验证的，千万不要在公网环境下 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/01/30/install-maven/" title="安装 Maven">安装 Maven</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-29T18:27:46.000Z" title="发表于 2023-01-30 02:27:46">2023-01-30</time></span></div><div class="content">Apache Maven ，是一个软件（特别是 Java 软件）项目管理及自动构建工具，由 Apache 软件基金会所提供。 Maven 也可被用于构建和管理各种项目，例如 C# ， Ruby ， Scala 和其他语言编写的项目。 Maven 曾是 Jakarta 项目的子项目，现为由 Apache 软件基金会主持的独立 Apache 项目。
+Maven 解决了软件构建的两方面问题：一是软件是如何构建的，二是软件的依赖关系。不同于 Apache Ant 等早期工具， Maven 设定了构建流程的标准，在此之外只需要指定例外情况。XML文件描述了正在构建的软件项目、它对其他外部模块和组件的依赖关系、构建顺序、目录和所需的插件。该文件通常有预设的目标任务，例如代码编译和打包。Maven从一个或多个代码仓库（例如Maven 2 Central Repository）动态地下载Java库与Maven插件，并将其存储在本地缓存区中[1]。
+先决条件Apache Maven 最新版对于系统的要求如下：
+
+JDK：需要在 1.7 版本以上；
+磁盘空间：需要约 10 MiB 的空间安装 Maven  ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zihlu Wang</div><div class="author-info__description">编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zihluwang"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><a target="_blank" rel="noopener" href="https://t.me/+4o6OAPrTrJ1lZjYx">点击链接加入 Telegram 群组</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/10/java-code-optimisations/" title="Java Code Optimisations">Java Code Optimisations</a><time datetime="2024-11-10T10:03:15.000Z" title="发表于 2024-11-10 18:03:15">2024-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/27/mac-terminal-hostname-displayed-as-10-172-or-192/" title="Mac 终端的主机名显示10，172或192">Mac 终端的主机名显示10，172或192</a><time datetime="2024-02-27T07:35:12.000Z" title="发表于 2024-02-27 15:35:12">2024-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/01/migrate-from-maven-to-gradle/" title="将 Java 类库由 Maven 转换为 Gradle">将 Java 类库由 Maven 转换为 Gradle</a><time datetime="2024-02-01T04:48:03.000Z" title="发表于 2024-02-01 12:48:03">2024-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/31/install-gradle/" title="安装 Gradle">安装 Gradle</a><time datetime="2024-01-31T11:07:00.000Z" title="发表于 2024-01-31 19:07:00">2024-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/28/install-local-dns-server/" title="安装本地 DNS 服务器">安装本地 DNS 服务器</a><time datetime="2023-06-28T02:45:56.000Z" title="发表于 2023-06-28 10:45:56">2023-06-28</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/axios/" style="font-size: 1.1em; color: #999">axios</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.3em; color: #99a1ac">运维</a> <a href="/tags/Build-Tools/" style="font-size: 1.3em; color: #99a1ac">Build Tools</a> <a href="/tags/vue/" style="font-size: 1.1em; color: #999">vue</a> <a href="/tags/Frontend/" style="font-size: 1.1em; color: #999">Frontend</a> <a href="/tags/SDK/" style="font-size: 1.3em; color: #99a1ac">SDK</a> <a href="/tags/O-M/" style="font-size: 1.1em; color: #999">O&M</a> <a href="/tags/Dev-Tools/" style="font-size: 1.3em; color: #99a1ac">Dev Tools</a> <a href="/tags/Private-Npm-Registry/" style="font-size: 1.1em; color: #999">Private Npm Registry</a> <a href="/tags/Maven/" style="font-size: 1.1em; color: #999">Maven</a> <a href="/tags/typescript/" style="font-size: 1.1em; color: #999">typescript</a> <a href="/tags/Npm-Registry/" style="font-size: 1.1em; color: #999">Npm Registry</a> <a href="/tags/Java/" style="font-size: 1.5em; color: #99a9bf">Java</a> <a href="/tags/Mac/" style="font-size: 1.1em; color: #999">Mac</a> <a href="/tags/Gradle/" style="font-size: 1.3em; color: #99a1ac">Gradle</a> <a href="/tags/macOS/" style="font-size: 1.1em; color: #999">macOS</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 1.1em; color: #999">开发</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.1em; color: #999">前端</a> <a href="/tags/JavaSE/" style="font-size: 1.1em; color: #999">JavaSE</a> <a href="/tags/upgrade/" style="font-size: 1.1em; color: #999">upgrade</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">一月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/04/"><span class="card-archive-list-date">四月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">11</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-11-10T10:10:07.798Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zihlu Wang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JDK-21 新功能预览[JEP430] String Template | 编程精灵</title><meta name="author" content="Zihlu Wang"><meta name="copyright" content="Zihlu Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JDK-21 新功能预览 - 模板字符串 ([JEP430]) 本文章内容为搬运，原文请见 JEP430 - String Template     Property Value    Owner Jim Laskey   Type Feature   Scope SE   Status Proposed to Target   Release 21   Component specificati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK-21 新功能预览[JEP430] String Template">
+<meta property="og:url" content="https://zihlu.wang/2023/04/07/jep430-string-templates-in-java/index.html">
+<meta property="og:site_name" content="编程精灵">
+<meta property="og:description" content="JDK-21 新功能预览 - 模板字符串 ([JEP430]) 本文章内容为搬运，原文请见 JEP430 - String Template     Property Value    Owner Jim Laskey   Type Feature   Scope SE   Status Proposed to Target   Release 21   Component specificati">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-04-07T13:14:18.000Z">
+<meta property="article:modified_time" content="2024-11-10T10:00:08.147Z">
+<meta property="article:author" content="Zihlu Wang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/image/favicon.ico"><link rel="canonical" href="https://zihlu.wang/2023/04/07/jep430-string-templates-in-java/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JDK-21 新功能预览[JEP430] String Template',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-10 18:00:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="编程精灵"><span class="site-name">编程精灵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> GitHub</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JDK-21 新功能预览[JEP430] String Template</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-07T13:14:18.000Z" title="发表于 2023-04-07 21:14:18">2023-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-10T10:00:08.147Z" title="更新于 2024-11-10 18:00:08">2024-11-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title="JDK-21 新功能预览[JEP430] String Template"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="JDK-21-新功能预览-模板字符串-JEP430"><a href="#JDK-21-新功能预览-模板字符串-JEP430" class="headerlink" title="JDK-21 新功能预览 - 模板字符串 ([JEP430])"></a>JDK-21 新功能预览 - 模板字符串 ([JEP430])</h1><blockquote>
+<p>本文章内容为搬运，原文请见 <a target="_blank" rel="noopener" href="https://openjdk.org/jeps/430">JEP430 - String Template</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="right">Property</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">Owner</td>
+<td align="left">Jim Laskey</td>
+</tr>
+<tr>
+<td align="right">Type</td>
+<td align="left">Feature</td>
+</tr>
+<tr>
+<td align="right">Scope</td>
+<td align="left">SE</td>
+</tr>
+<tr>
+<td align="right">Status</td>
+<td align="left">Proposed to Target</td>
+</tr>
+<tr>
+<td align="right">Release</td>
+<td align="left">21</td>
+</tr>
+<tr>
+<td align="right">Component</td>
+<td align="left">specification &#x2F; language</td>
+</tr>
+<tr>
+<td align="right">Discussion</td>
+<td align="left">amber dash dev at openjdk dot org</td>
+</tr>
+<tr>
+<td align="right">Effort</td>
+<td align="left">M</td>
+</tr>
+<tr>
+<td align="right">Duration</td>
+<td align="left">M</td>
+</tr>
+<tr>
+<td align="right">Reviewed by</td>
+<td align="left">Alex Buckley, Brian Goetz, Maurizio Cimadamore</td>
+</tr>
+<tr>
+<td align="right">Endorsed by</td>
+<td align="left">Brian Goetz</td>
+</tr>
+<tr>
+<td align="right">Created</td>
+<td align="left">2021&#x2F;09&#x2F;17 13:41</td>
+</tr>
+<tr>
+<td align="right">Updated</td>
+<td align="left">2023&#x2F;04&#x2F;06 21:41</td>
+</tr>
+<tr>
+<td align="right">Issue</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://bugs.openjdk.org/browse/JDK-8273943">8273943</a></td>
+</tr>
+</tbody></table>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Enhance the Java programming language with <em>string templates</em>. String templates complement Java’s existing string<br>literals and text blocks by coupling literal text with embedded expressions and <em>template processors</em> to produce<br>specialized results. This is a <a target="_blank" rel="noopener" href="https://openjdk.org/jeps/12">preview language feature and API</a>.</p>
+<h2 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h2><ul>
+<li>Simplify the writing of Java programs by making it easy to express strings that include values computed at run time.</li>
+<li>Enhance the readability of expressions that mix text and expressions, whether the text fits on a single source line (<br>as with string literals) or spans several source lines (as with text blocks).</li>
+<li>Improve the security of Java programs that compose strings from user-provided values and pass them to other systems (<br>e.g., building queries for databases) by supporting validation and transformation of both the template and the values<br>of its embedded expressions.</li>
+<li>Retain flexibility by allowing Java libraries to define the formatting syntax used in string templates.</li>
+<li>Simplify the use of APIs that accept strings written in non-Java languages (e.g., SQL, XML, and JSON).</li>
+<li>Enable the creation of non-string values computed from literal text and embedded expressions without having to transit<br>through an intermediate string representation.</li>
+</ul>
+<h2 id="Non-Goals"><a href="#Non-Goals" class="headerlink" title="Non-Goals"></a>Non-Goals</h2><ul>
+<li>It is not a goal to introduce syntactic sugar for Java’s string concatenation operator (<code>+</code>), since that would<br>circumvent the goal of validation.</li>
+<li>It is not a goal to deprecate or remove the <code>StringBuilder</code> and <code>StringBuffer</code> classes, which have traditionally been<br>used for complex or programmatic string composition.</li>
+</ul>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Developers routinely compose strings from a combination of literal text and expressions. Java provides several<br>mechanisms for string composition, though unfortunately all have drawbacks.</p>
+<ul>
+<li><p>String concatenation with<br>the <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jls/se20/html/jls-15.html#jls-15.18.1"><code>+</code> operator</a> produces hard-to-read<br>code:</p>
+<pre><code class="java">String s = x + &quot; plus &quot; + y + &quot; equals &quot; + (x + y);
+</code></pre>
+</li>
+<li><p><code>StringBuilder</code> is verbose:</p>
+<pre><code class="java">String s = new StringBuilder()
+                 .append(x)
+                 .append(&quot; plus &quot;)
+                 .append(y)
+                 .append(&quot; equals &quot;)
+                 .append(x + y)
+                 .toString();
+</code></pre>
+</li>
+<li><p><code>String::format</code> and <code>String::formatted</code> separate the format string from the parameters, inviting arity and type<br>mismatches:</p>
+<pre><code>String s = String.format(&quot;%2$d plus %1$d equals %3$d&quot;, x, y, x + y);
+String t = &quot;%2$d plus %1$d equals %3$d&quot;.formatted(x, y, x + y);
+</code></pre>
+</li>
+<li><p><code>java.text.MessageFormat</code> requires too much ceremony and uses an unfamiliar syntax in the format string:</p>
+<pre><code class="java">MessageFormat mf = new MessageFormat(&quot;&#123;0&#125; plus &#123;1&#125; equals &#123;2&#125;&quot;);
+String s = mf.format(x, y, x + y);
+</code></pre>
+</li>
+</ul>
+<h2 id="String-interpolation"><a href="#String-interpolation" class="headerlink" title="String interpolation"></a>String interpolation</h2><p>Many programming languages offer <em>string interpolation</em> as an alternative to string concatenation. Typically, this takes<br>the form of a string literal that contains embedded expressions as well as literal text. Embedding expressions <em>in situ</em><br>means that readers can easily discern the intended result. At run time, the embedded expressions are replaced with<br>their (stringified) values — the values are said to be <em>interpolated</em> into the string. Here are some examples of<br>interpolation in other languages:</p>
+<pre><code class="plain">C#             $&quot;&#123;x&#125; plus &#123;y&#125; equals &#123;x + y&#125;&quot;
+Visual Basic   $&quot;&#123;x&#125; plus &#123;y&#125; equals &#123;x + y&#125;&quot;
+Python         f&quot;&#123;x&#125; plus &#123;y&#125; equals &#123;x + y&#125;&quot;
+Scala          s&quot;$x plus $y equals $&#123;x + y&#125;&quot;
+Groovy         &quot;$x plus $y equals $&#123;x + y&#125;&quot;
+Kotlin         &quot;$x plus $y equals $&#123;x + y&#125;&quot;
+JavaScript     `$&#123;x&#125; plus $&#123;y&#125; equals $&#123;x + y&#125;`
+Ruby           &quot;#&#123;x&#125; plus #&#123;y&#125; equals #&#123;x + y&#125;&quot;
+Swift          &quot;\(x) plus \(y) equals \(x + y)&quot;
+</code></pre>
+<p>Some of these languages enable interpolation for all string literals while others require interpolation to be enabled<br>when desired, for example by prefixing the literal’s opening delimiter with <code>$</code> or <code>f</code>. The syntax of embedded<br>expressions also varies but often involves characters such as <code>$</code> or <code>&#123; &#125;</code>, which means that those characters cannot<br>appear literally unless they are escaped.</p>
+<p>Not only is interpolation more convenient than concatenation when writing code, it also offers greater clarity when<br>reading code. The clarity is especially striking with larger strings. For example, in JavaScript:</p>
+<pre><code class="java">const title = &quot;My Web Page&quot;;
+const text  = &quot;Hello, world&quot;;
+
+var html = `&lt;html&gt;
+              &lt;head&gt;
+                &lt;title&gt;$&#123;title&#125;&lt;/title&gt;
+              &lt;/head&gt;
+              &lt;body&gt;
+                &lt;p&gt;$&#123;text&#125;&lt;/p&gt;
+              &lt;/body&gt;
+            &lt;/html&gt;`;
+</code></pre>
+<h3 id="String-interpolation-is-dangerous"><a href="#String-interpolation-is-dangerous" class="headerlink" title="String interpolation is dangerous"></a>String interpolation is dangerous</h3><p>Unfortunately, the convenience of interpolation has a downside: It is easy to construct strings that will be interpreted<br>by other systems but which are dangerously incorrect in those systems.</p>
+<p>Strings that hold SQL statements, HTML&#x2F;XML documents, JSON snippets, shell scripts, and natural-language text all need<br>to be validated and sanitized according to domain-specific rules. Since the Java programming language cannot possibly<br>enforce all such rules, it is up to developers using interpolation to validate and sanitize. Typically, this means<br>remembering to wrap embedded expressions in calls to <code>escape</code> or <code>validate</code> methods, and relying on IDEs<br>or <a target="_blank" rel="noopener" href="https://checkerframework.org/manual/">static analysis tools</a> to help to validate the literal text.</p>
+<p>Interpolation is especially dangerous for SQL statements because it can lead<br>to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SQL_injection">injection attacks</a>. For example, consider this hypothetical Java code<br>with the embedded expression <code>$&#123;name&#125;</code>:</p>
+<pre><code class="plain">String query = &quot;SELECT * FROM Person p WHERE p.last_name = &#39;$&#123;name&#125;&#39;&quot;;
+ResultSet rs = connection.createStatement().executeQuery(query);
+</code></pre>
+<p>If <code>name</code> had the troublesome value</p>
+<pre><code class="plain">Smith&#39; OR p.last_name &lt;&gt; &#39;Smith
+</code></pre>
+<p>then the query string would be</p>
+<pre><code class="sql">SELECT * FROM Person p WHERE p.last_name = &#39;Smith&#39; OR p.last_name &lt;&gt; &#39;Smith&#39;
+</code></pre>
+<p>and the code would select all rows, potentially exposing confidential information. Composing a query string with<br>simple-minded interpolation is just as unsafe as composing it with traditional concatenation:</p>
+<pre><code class="java">String query = &quot;SELECT * FROM Person p WHERE p.last_name = &#39;&quot; + name + &quot;&#39;&quot;;
+</code></pre>
+<h3 id="Can-we-do-better"><a href="#Can-we-do-better" class="headerlink" title="Can we do better?"></a>Can we do better?</h3><p>For Java, we would like to have a string composition feature that achieves the clarity of interpolation but achieves a<br>safer result out-of-the-box, perhaps trading off a small amount of convenience to gain a large amount of safety.</p>
+<p>For example, when composing SQL statements any quotes in the values of embedded expressions must be escaped, and the<br>string overall must have balanced quotes. Given the troublesome value of <code>name</code> shown above, the query that should be<br>composed is a safe one:</p>
+<pre><code class="sql">SELECT * FROM Person p WHERE p.last_name = &#39;\&#39;Smith\&#39; OR p.last_name &lt;&gt; \&#39;Smith\&#39;&#39;
+</code></pre>
+<p>Almost every use of string interpolation involves structuring the string to fit some kind of template: A SQL statement<br>usually follows the template <code>SELECT ... FROM ... WHERE ...</code>, an HTML document follows <code>&lt;html&gt; ... &lt;/html&gt;</code>, and even a<br>message in a natural language follows a template that intersperses dynamic values (e.g., a username) amongst literal<br>text. Each kind of template has rules for validation and transformation, such as “escape all quotes” for SQL<br>statements, “allow only legal character entities” for HTML documents, and “localize to the language configured in the<br>OS” for natural-language messages.</p>
+<p>Ideally a string’s template could be expressed directly in the code, as if annotating the string, and the Java runtime<br>would apply template-specific rules to the string automatically. The result would be SQL statements with escaped quotes,<br>HTML documents with no illegal entities, and boilerplate-free message localization. Composing a string from a template<br>would relieve developers of having to laboriously escape each embedded expression, call <code>validate()</code> on the whole<br>string, or use <code>java.util.ResourceBundle</code> to look up a localized string.</p>
+<p>For another example, we might construct a string denoting a JSON document and then feed it to a JSON parser in order to<br>obtain a strongly-typed <code>JSONObject</code>:</p>
+<pre><code class="java">String name    = &quot;Joan Smith&quot;;
+String phone   = &quot;555-123-4567&quot;;
+String address = &quot;1 Maple Drive, Anytown&quot;;
+String json = &quot;&quot;&quot;
+    &#123;
+        &quot;name&quot;:    &quot;%s&quot;,
+        &quot;phone&quot;:   &quot;%s&quot;,
+        &quot;address&quot;: &quot;%s&quot;
+    &#125;
+    &quot;&quot;&quot;.formatted(name, phone, address);
+
+JSONObject doc = JSON.parse(json);
+... doc.entrySet().stream().map(...) ...
+</code></pre>
+<p>Ideally the JSON structure of the string could be expressed directly in the code, and the Java runtime would transform<br>the string into a <code>JSONObject</code> automatically. The manual detour through the parser would not be necessary.</p>
+<p>In summary, we could improve the readability and reliability of almost every Java program if we had a first-class,<br>template-based mechanism for composing strings. Such a feature would offer the benefits of interpolation, as seen in<br>other programming languages, but would be less prone to introducing security vulnerabilities. It would also reduce the<br>ceremony of working with libraries that take complex input as strings.</p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p><em>Template expressions</em> are a new kind of expression in the Java programming language. Template expressions can perform<br>string interpolation but are also programmable in a way that helps developers compose strings safely and efficiently. In<br>addition, template expressions are not limited to composing strings — they can turn structured text into any kind of<br>object, according to domain-specific rules.</p>
+<p>Syntactically, a template expression resembles a string literal with a prefix. There is a template expression on the<br>second line of this code:</p>
+<pre><code>String name = &quot;Joan&quot;;
+String info = STR.&quot;My name is \&#123;name&#125;&quot;;
+assert info.equals(&quot;My name is Joan&quot;);   // true
+</code></pre>
+<p>The template expression <code>STR.&quot;My name is \&#123;name&#125;&quot;</code> consists of:</p>
+<ol>
+<li>A <em>template processor</em> (<code>STR</code>);</li>
+<li>A dot character (U+002E), as seen in other kinds of expressions; and</li>
+<li>A <em>template</em> (<code>&quot;My name is \&#123;name&#125;&quot;</code>) which contains an <em>embedded expression</em> (<code>\&#123;name&#125;</code>).</li>
+</ol>
+<p>When a template expression is evaluated at run time, its template processor combines the literal text in the template<br>with the values of the embedded expressions in order to produce a result. The result of the template processor, and thus<br>the result of evaluating the template expression, is often a <code>String</code> — though not always.</p>
+<h3 id="The-STR-template-processor"><a href="#The-STR-template-processor" class="headerlink" title="The STR template processor"></a>The <code>STR</code> template processor</h3><p><code>STR</code> is a template processor defined in the Java Platform. It performs string interpolation by replacing each embedded<br>expression in the template with the (stringified) value of that expression. The result of evaluating a template<br>expression which uses <code>STR</code> is a <code>String</code>; e.g., <code>&quot;My name is Joan&quot;</code>.</p>
+<p>In everyday conversation developers are likely to use the term “template” when referring either to the whole of a<br>template expression, which includes the template processor, or to just the template part of a template expression, which<br>is the argument to the template processor. This informal usage is reasonable as long as care is taken not to conflate<br>these concepts.</p>
+<p><code>STR</code> is a <code>public</code> <code>static</code> <code>final</code> field that is automatically imported into every Java source file.</p>
+<p>Here are more examples of template expressions that use the <code>STR</code> template processor. The symbol <code>|</code> in the left margin<br>means that the line shows the value of the previous statement, similar<br>to <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/20/docs/specs/man/jshell.html">jshell</a>.</p>
+<pre><code>// Embedded expressions can be strings
+String firstName = &quot;Bill&quot;;
+String lastName  = &quot;Duck&quot;;
+String fullName  = STR.&quot;\&#123;firstName&#125; \&#123;lastName&#125;&quot;;
+| &quot;Bill Duck&quot;
+String sortName  = STR.&quot;\&#123;lastName&#125;, \&#123;firstName&#125;&quot;;
+| &quot;Duck, Bill&quot;
+
+// Embedded expressions can perform arithmetic
+int x = 10, y = 20;
+String s = STR.&quot;\&#123;x&#125; + \&#123;y&#125; = \&#123;x + y&#125;&quot;;
+| &quot;10 + 20 = 30&quot;
+
+// Embedded expressions can invoke methods and access fields
+String s = STR.&quot;You have a \&#123;getOfferType()&#125; waiting for you!&quot;;
+| &quot;You have a gift waiting for you!&quot;
+String t = STR.&quot;Access at \&#123;req.date&#125; \&#123;req.time&#125; from \&#123;req.ipAddress&#125;&quot;;
+| &quot;Access at 2022-03-25 15:34 from 8.8.8.8&quot;
+</code></pre>
+<p>To aid refactoring, double-quote characters can be used inside embedded expressions without escaping them as <code>\&quot;</code>. This<br>means that an embedded expression can appear in a template expression exactly as it would appear outside the template<br>expression, easing the switch from concatenation (<code>+</code>) to template expressions. For example:</p>
+<pre><code>String filePath = &quot;tmp.dat&quot;;
+File   file     = new File(filePath);
+String old = &quot;The file &quot; + filePath + &quot; &quot; + file.exists() ? &quot;does&quot; : &quot;does not&quot; + &quot; exist&quot;;
+String msg = STR.&quot;The file \&#123;filePath&#125; \&#123;file.exists() ? &quot;does&quot; : &quot;does not&quot;&#125; exist&quot;;
+| &quot;The file tmp.dat does exist&quot; or &quot;The file tmp.dat does not exist&quot;
+</code></pre>
+<p>To aid readability, an embedded expression can be spread over multiple lines in the source file without introducing<br>newlines into the result. The value of the embedded expression is interpolated into the result at the position of<br>the <code>\</code> of the embedded expression; the template is then considered to continue on the same line as the <code>\</code>. For<br>example:</p>
+<pre><code>String time = STR.&quot;The time is \&#123;
+    // The java.time.format package is very useful
+    DateTimeFormatter
+      .ofPattern(&quot;HH:mm:ss&quot;)
+      .format(LocalTime.now())
+&#125; right now&quot;;
+| &quot;The time is 12:34:56 right now&quot;
+</code></pre>
+<p>There is no limit to the number of embedded expressions in a string template expression. The embedded expressions are<br>evaluated from left to right, just like the arguments in a method invocation expression. For example:</p>
+<pre><code>// Embedded expressions can be postfix increment expressions
+int index = 0;
+String data = STR.&quot;\&#123;index++&#125;, \&#123;index++&#125;, \&#123;index++&#125;, \&#123;index++&#125;&quot;;
+| &quot;0, 1, 2, 3&quot;
+</code></pre>
+<p>Any Java expression can be used as an embedded expression — even a template expression. For example:</p>
+<pre><code>// Embedded expression is a (nested) template expression
+String[] fruit = &#123; &quot;apples&quot;, &quot;oranges&quot;, &quot;peaches&quot; &#125;;
+String s = STR.&quot;\&#123;fruit[0]&#125;, \&#123;STR.&quot;\&#123;fruit[1]&#125;, \&#123;fruit[2]&#125;&quot;&#125;&quot;;
+| &quot;apples, oranges, peaches&quot;
+</code></pre>
+<p>Here the template expression <code>STR.&quot;\&#123;fruit[1]&#125;, \&#123;fruit[2]&#125;&quot;</code> is embedded in the template of another template<br>expression. This code is difficult to read due to the abundance of <code>&quot;</code>, <code>\</code>, and <code>&#123; &#125;</code> characters, so it is better to<br>format it as:</p>
+<pre><code>String s = STR.&quot;\&#123;fruit[0]&#125;, \&#123;
+    STR.&quot;\&#123;fruit[1]&#125;, \&#123;fruit[2]&#125;&quot;
+&#125;&quot;;
+</code></pre>
+<p>Alternatively, since the embedded expression has no side effects, it could be refactored into a separate template<br>expression:</p>
+<pre><code>String tmp = STR.&quot;\&#123;fruit[1]&#125;, \&#123;fruit[2]&#125;&quot;;
+String s = STR.&quot;\&#123;fruit[0]&#125;, \&#123;tmp&#125;&quot;;
+</code></pre>
+<h3 id="Multi-line-template-expressions"><a href="#Multi-line-template-expressions" class="headerlink" title="Multi-line template expressions"></a>Multi-line template expressions</h3><p>The template of a template expression can span multiple lines of source code, using a syntax similar to that<br>of <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jls/se20/html/jls-3.html#jls-3.10.6">text blocks</a>. (We saw an embedded<br>expression spanning multiple lines above, but the template which contained the embedded expression was logically one<br>line.)</p>
+<p>Here are examples of template expressions denoting HTML text, JSON text, and a zone table, all spread over multiple<br>lines:</p>
+<pre><code>String title = &quot;My Web Page&quot;;
+String text  = &quot;Hello, world&quot;;
+String html = STR.&quot;&quot;&quot;
+        &lt;html&gt;
+          &lt;head&gt;
+            &lt;title&gt;\&#123;title&#125;&lt;/title&gt;
+          &lt;/head&gt;
+          &lt;body&gt;
+            &lt;p&gt;\&#123;text&#125;&lt;/p&gt;
+          &lt;/body&gt;
+        &lt;/html&gt;
+        &quot;&quot;&quot;;
+| &quot;&quot;&quot;
+| &lt;html&gt;
+|   &lt;head&gt;
+|     &lt;title&gt;My Web Page&lt;/title&gt;
+|   &lt;/head&gt;
+|   &lt;body&gt;
+|     &lt;p&gt;Hello, world&lt;/p&gt;
+|   &lt;/body&gt;
+| &lt;/html&gt;
+| &quot;&quot;&quot;
+
+String name    = &quot;Joan Smith&quot;;
+String phone   = &quot;555-123-4567&quot;;
+String address = &quot;1 Maple Drive, Anytown&quot;;
+String json = STR.&quot;&quot;&quot;
+    &#123;
+        &quot;name&quot;:    &quot;\&#123;name&#125;&quot;,
+        &quot;phone&quot;:   &quot;\&#123;phone&#125;&quot;,
+        &quot;address&quot;: &quot;\&#123;address&#125;&quot;
+    &#125;
+    &quot;&quot;&quot;;
+| &quot;&quot;&quot;
+| &#123;
+|     &quot;name&quot;:    &quot;Joan Smith&quot;,
+|     &quot;phone&quot;:   &quot;555-123-4567&quot;,
+|     &quot;address&quot;: &quot;1 Maple Drive, Anytown&quot;
+| &#125;
+| &quot;&quot;&quot;
+
+record Rectangle(String name, double width, double height) &#123;
+    double area() &#123;
+        return width * height;
+    &#125;
+&#125;
+Rectangle[] zone = new Rectangle[] &#123;
+    new Rectangle(&quot;Alfa&quot;, 17.8, 31.4),
+    new Rectangle(&quot;Bravo&quot;, 9.6, 12.4),
+    new Rectangle(&quot;Charlie&quot;, 7.1, 11.23),
+&#125;;
+String table = STR.&quot;&quot;&quot;
+    Description  Width  Height  Area
+    \&#123;zone[0].name&#125;  \&#123;zone[0].width&#125;  \&#123;zone[0].height&#125;     \&#123;zone[0].area()&#125;
+    \&#123;zone[1].name&#125;  \&#123;zone[1].width&#125;  \&#123;zone[1].height&#125;     \&#123;zone[1].area()&#125;
+    \&#123;zone[2].name&#125;  \&#123;zone[2].width&#125;  \&#123;zone[2].height&#125;     \&#123;zone[2].area()&#125;
+    Total \&#123;zone[0].area() + zone[1].area() + zone[2].area()&#125;
+    &quot;&quot;&quot;;
+| &quot;&quot;&quot;
+| Description  Width  Height  Area
+| Alfa  17.8  31.4     558.92
+| Bravo  9.6  12.4     119.03999999999999
+| Charlie  7.1  11.23     79.733
+| Total 757.693
+| &quot;&quot;&quot;
+</code></pre>
+<h3 id="The-FMT-template-processor"><a href="#The-FMT-template-processor" class="headerlink" title="The FMT template processor"></a>The <code>FMT</code> template processor</h3><p><code>FMT</code> is another template processor defined in the Java Platform. <code>FMT</code> is like <code>STR</code> in that it performs interpolation,<br>but it also interprets format specifiers which appear to the left of embedded expressions. The format specifiers are the<br>same as those defined<br>in <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/util/Formatter.html"><code>java.util.Formatter</code></a>. Here<br>is the zone table example, tidied up by format specifiers in the template:</p>
+<pre><code>record Rectangle(String name, double width, double height) &#123;
+    double area() &#123;
+        return width * height;
+    &#125;
+&#125;
+Rectangle[] zone = new Rectangle[] &#123;
+    new Rectangle(&quot;Alfa&quot;, 17.8, 31.4),
+    new Rectangle(&quot;Bravo&quot;, 9.6, 12.4),
+    new Rectangle(&quot;Charlie&quot;, 7.1, 11.23),
+&#125;;
+String table = FMT.&quot;&quot;&quot;
+    Description     Width    Height     Area
+    %-12s\&#123;zone[0].name&#125;  %7.2f\&#123;zone[0].width&#125;  %7.2f\&#123;zone[0].height&#125;     %7.2f\&#123;zone[0].area()&#125;
+    %-12s\&#123;zone[1].name&#125;  %7.2f\&#123;zone[1].width&#125;  %7.2f\&#123;zone[1].height&#125;     %7.2f\&#123;zone[1].area()&#125;
+    %-12s\&#123;zone[2].name&#125;  %7.2f\&#123;zone[2].width&#125;  %7.2f\&#123;zone[2].height&#125;     %7.2f\&#123;zone[2].area()&#125;
+    \&#123;&quot; &quot;.repeat(28)&#125; Total %7.2f\&#123;zone[0].area() + zone[1].area() + zone[2].area()&#125;
+    &quot;&quot;&quot;;
+| &quot;&quot;&quot;
+| Description     Width    Height     Area
+| Alfa            17.80    31.40      558.92
+| Bravo            9.60    12.40      119.04
+| Charlie          7.10    11.23       79.73
+|                              Total  757.69
+| &quot;&quot;&quot;
+</code></pre>
+<h3 id="Ensuring-safety"><a href="#Ensuring-safety" class="headerlink" title="Ensuring safety"></a>Ensuring safety</h3><p>The template expression <code>STR.&quot;...&quot;</code> is a shortcut for invoking the <code>process</code> method of the <code>STR</code> template processor.<br>That is, the now-familiar example:</p>
+<pre><code>String name = &quot;Joan&quot;;
+String info = STR.&quot;My name is \&#123;name&#125;&quot;;
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code>String name = &quot;Joan&quot;;
+StringTemplate st = RAW.&quot;My name is \&#123;name&#125;&quot;;
+String info = STR.process(st);
+</code></pre>
+<p>where <code>RAW</code> is a standard template processor that produces an<br>unprocessed <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a><br>object.</p>
+<p>The design of template expressions deliberately makes it impossible to go directly from a string literal or text block<br>with embedded expressions to a <code>String</code> with the expressions’ values interpolated. This prevents dangerously incorrect<br>strings from spreading through a program. The string literal is processed by a template processor, which has explicit<br>responsibility for safely interpolating and validating a result, <code>String</code> or otherwise. Thus if we forget to use a<br>template processor such as <code>STR</code>, <code>RAW</code>, or <code>FMT</code> then a compile-time error is reported:</p>
+<pre><code>String name = &quot;Joan&quot;;
+String info = &quot;My name is \&#123;name&#125;&quot;;
+| error: processor missing from template expression
+</code></pre>
+<h3 id="Syntax-and-semantics"><a href="#Syntax-and-semantics" class="headerlink" title="Syntax and semantics"></a>Syntax and semantics</h3><p>The four kinds of template in a template expression are shown by its grammar, which starts at <code>TemplateExpression</code>:</p>
+<pre><code>TemplateExpression:
+  TemplateProcessor . TemplateArgument
+
+TemplateProcessor:
+  Expression
+
+TemplateArgument:
+  Template
+  StringLiteral
+  TextBlock
+
+Template:
+  StringTemplate
+  TextBlockTemplate
+
+StringTemplate:
+  Resembles a StringLiteral but has one or more embedded expressions,
+    and can be spread over multiple lines of source code
+
+TextBlockTemplate:
+  Resembles a TextBlock but has one or more embedded expressions
+</code></pre>
+<p>The Java compiler scans the term <code>&quot;...&quot;</code> and determines whether to parse it as a <code>StringLiteral</code> or a <code>StringTemplate</code><br>based on the presence of embedded expressions. The compiler similarly scans the term <code>&quot;&quot;&quot;...&quot;&quot;&quot;</code> and determines whether<br>to parse it as a <code>TextBlock</code> or a <code>TextBlockTemplate</code>. We refer uniformly to the <code>...</code> portion of these terms as the<br><em>content</em> of a <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jls/se20/html/jls-3.html#jls-3.10.5-200">string literal</a>, string<br>template, <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jls/se20/html/jls-3.html#jls-3.10.6-300">text block</a>, or text block<br>template.</p>
+<p>We strongly encourage IDEs to visually distinguish a string template from a string literal, and a text block template<br>from a text block. Within the content of a string template or text block template, IDEs should visually distinguish an<br>embedded expression from literal text.</p>
+<p>The Java programming language distinguishes string literals from string templates, and text blocks from text block<br>templates, primarily because the type of a string template or text block template is not the<br>familiar <code>java.lang.String</code>. The type of a string template or text block template<br>is <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>java.lang.StringTemplate</code></a>,<br>which is an interface, and <code>String</code> does not implement <code>StringTemplate</code>. When the template of a template expression is a<br>string literal or a text block, therefore, the Java compiler automatically transforms the <code>String</code> denoted by the<br>template into a <code>StringTemplate</code> with no embedded expressions.</p>
+<p>At run time, a template expression is evaluated as follows:</p>
+<ol>
+<li>The expression to the left of the dot is evaluated to obtain an instance of the nested<br>interface <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.Processor.html"><code>StringTemplate.Processor</code></a>,<br>that is, a template processor.</li>
+<li>The expression to the right of the dot is evaluated to obtain an instance<br>of <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a>.</li>
+<li>The <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a><br>instance is passed to the <code>process</code> method of<br>the <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.Processor.html"><code>StringTemplate.Processor</code></a><br>instance, which composes a result.</li>
+</ol>
+<p>The type of a template expression is the return type of the <code>process</code> method of the <code>StringTemplate.Processor</code> instance.</p>
+<p>Template processors execute at run time, not at compile time, so they cannot perform compile-time processing on<br>templates. Neither can they obtain the exact characters which appear in a template in source code; only the values of<br>the embedded expressions are available, not the embedded expressions themselves.</p>
+<h3 id="String-literals-inside-template-expressions"><a href="#String-literals-inside-template-expressions" class="headerlink" title="String literals inside template expressions"></a>String literals inside template expressions</h3><p>The ability to use a string literal or a text block as a template improves the flexibility of template expressions.<br>Developers can write template expressions that initially have placeholder text in a string literal, such as</p>
+<pre><code>String s = STR.&quot;Welcome to your account&quot;;
+| &quot;Welcome to your account&quot;
+</code></pre>
+<p>and gradually embed expressions into the text to create a string template without changing any delimiters or inserting<br>any special prefixes:</p>
+<pre><code>String s = STR.&quot;Welcome, \&#123;user.firstName()&#125;, to your account \&#123;user.accountNumber()&#125;&quot;;
+| &quot;Welcome, Lisa, to your account 12345&quot;
+</code></pre>
+<h3 id="User-defined-template-processors"><a href="#User-defined-template-processors" class="headerlink" title="User-defined template processors"></a>User-defined template processors</h3><p>Earlier we saw the template processors <code>STR</code> and <code>FMT</code>, which make it look as if a template processor is an object<br>accessed via a field. That is useful shorthand, but it is more accurate to say that a template processor is an object<br>which is an instance of the functional<br>interface <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.Processor.html"><code>StringTemplate.Processor</code></a>.<br>In particular, the object’s class implements the single abstract method of that interface, <code>process</code>, which takes<br>a <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a> and<br>returns an object. A static field such as <code>STR</code> merely stores an instance of such a class. (The actual class whose<br>instance is stored in <code>STR</code> has a <code>process</code> method that performs a stateless interpolation for which a singleton<br>instance is suitable, hence the upper-case field name.)</p>
+<p>Developers can easily create template processors for use in template expressions. However, before discussing how to<br>create a template processor we must discuss the class <code>StringTemplate</code>.</p>
+<p>An instance<br>of <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a><br>represents the string template or text block template that appears as the template in a template expression. Consider<br>this code:</p>
+<pre><code>int x = 10, y = 20;
+StringTemplate st = RAW.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+String s = st.toString();
+| StringTemplate&#123; fragments = [ &quot;&quot;, &quot; plus &quot;, &quot; equals &quot;, &quot;&quot; ], values = [10, 20, 30] &#125;
+</code></pre>
+<p>The result is, perhaps, a surprise. Where is the interpolation of <code>10</code>, <code>20</code>, and <code>30</code> into the text <code>&quot; plus &quot;</code><br>and <code>&quot; equals &quot;</code>? Recall that one of the goals of template expressions is to provide secure string composition.<br>Having <code>StringTemplate::toString</code> simply concatenate <code>&quot;10&quot;</code>, <code>&quot; plus &quot;</code>, <code>&quot;20&quot;</code>, <code>&quot; equals &quot;</code>, and <code>&quot;30&quot;</code> into<br>a <code>String</code> would circumvent that goal. Instead, the <code>toString</code> method renders the two useful parts of<br>a <code>StringTemplate</code>:</p>
+<ul>
+<li>The text <em>fragments</em>, <code>&quot;&quot;, &quot; plus &quot;, &quot; equals &quot;, &quot;&quot;</code>, and</li>
+<li>The <em>values</em>, <code>10</code>, <code>20</code>, <code>30</code>.</li>
+</ul>
+<p>The <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a> class<br>exposes these parts directly:</p>
+<ul>
+<li><p><code>StringTemplate::fragments</code> returns a list of the text fragments coming before and after the embedded expressions in<br>the string template or text block template:</p>
+<pre><code>int x = 10, y = 20;
+StringTemplate st = RAW.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+List&lt;String&gt; fragments = st.fragments();
+String result = String.join(&quot;\\&#123;&#125;&quot;, fragments);
+| &quot;\&#123;&#125; plus \&#123;&#125; equals \&#123;&#125;&quot;
+</code></pre>
+</li>
+<li><p><code>StringTemplate::values</code> returns a list of the values produced by evaluating the embedded expressions in the order<br>they appear in the source code. In the current example, this is equivalent to <code>List.of(x, y, x + y)</code>.</p>
+<pre><code>int x = 10, y = 20;
+StringTemplate st = RAW.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+List&lt;Object&gt; values = st.values();
+| [10, 20, 30]
+</code></pre>
+</li>
+</ul>
+<p>The <code>fragments()</code> of<br>a <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.html"><code>StringTemplate</code></a> are<br>constant across all evaluations of a template expression, while <code>values()</code> is computed fresh for each evaluation. For<br>example:</p>
+<pre><code>int y = 20;
+for (int x = 0; x &lt; 3; x++) &#123;
+    StringTemplate st = RAW.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+    System.out.println(st);
+&#125;
+| [&quot;Adding &quot;, &quot; and &quot;, &quot; yields &quot;, &quot;&quot;](0, 20, 20)
+| [&quot;Adding &quot;, &quot; and &quot;, &quot; yields &quot;, &quot;&quot;](1, 20, 21)
+| [&quot;Adding &quot;, &quot; and &quot;, &quot; yields &quot;, &quot;&quot;](2, 20, 22)
+</code></pre>
+<p>Using <code>fragments()</code> and <code>values()</code>, we can easily create an interpolating template processor by passing a lambda<br>expression to the static factory method <code>StringTemplate.Processor::of</code>:</p>
+<pre><code>var INTER = StringTemplate.Processor.of((StringTemplate st) -&gt; &#123;
+    String placeHolder = &quot;•&quot;;
+    String stencil = String.join(placeHolder, st.fragments());
+    for (Object value : st.values()) &#123;
+        String v = String.valueOf(value);
+        stencil = stencil.replaceFirst(placeHolder, v);
+    &#125;
+    return stencil;
+&#125;);
+
+int x = 10, y = 20;
+String s = INTER.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+| 10 plus 20 equals 30
+</code></pre>
+<p>We can make this interpolating template processor more efficient by building up its result from fragments and values,<br>taking advantage of the fact that every template represents an alternating sequence of fragments and values:</p>
+<pre><code>var INTER = StringTemplate.Processor.of((StringTemplate st) -&gt; &#123;
+    StringBuilder sb = new StringBuilder();
+    Iterator&lt;String&gt; fragIter = st.fragments().iterator();
+    for (Object value : st.values()) &#123;
+        sb.append(fragIter.next());
+        sb.append(value);
+    &#125;
+    sb.append(fragIter.next());
+    return sb.toString();
+&#125;);
+
+int x = 10, y = 20;
+String s = INTER.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+| 10 and 20 equals 30
+</code></pre>
+<p>The utility method <code>StringTemplate::interpolate</code> does the same thing, successively concatenating fragments and values:</p>
+<pre><code>var INTER = StringTemplate.Processor.of(StringTemplate::interpolate);
+</code></pre>
+<p>Given that the values of embedded expressions are usually unpredictable, it is generally not worthwhile for a template<br>processor to intern the <code>String</code> that it produces. For example, <code>STR</code> does not intern its result. However, it is<br>straightforward to create an interning and interpolating template processor if needed:</p>
+<pre><code>var INTERN = StringTemplate.Processor.of(st -&gt; st.interpolate().intern());
+</code></pre>
+<h3 id="The-template-processor-API"><a href="#The-template-processor-API" class="headerlink" title="The template processor API"></a>The template processor API</h3><p>All of the examples so far have created template processors using the factory method <code>StringTemplate.Processor::of</code>.<br>These example processors return instances of <code>String</code> and throw no exceptions, so template expressions which use them<br>will always evaluate successfully.</p>
+<p>In contrast, a template processor that implements<br>the <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.Processor.html"><code>StringTemplate.Processor</code></a><br>interface directly can be fully general. It can return objects of any type, not just <code>String</code>. It can also throw checked<br>exceptions if processing fails, either because the template is invalid or for some other reason, such as an I&#x2F;O error.<br>If a processor throws checked exceptions then developers who use it in template expressions must handle processing<br>failures with <code>try-catch</code> statements, or else propagate the exceptions to callers.</p>
+<p>The declaration of<br>the <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/lang/StringTemplate.Processor.html"><code>StringTemplate.Processor</code></a><br>interface is:</p>
+<pre><code>package java.lang;
+public interface StringTemplate &#123;
+    ...
+    @FunctionalInterface
+    public interface Processor&lt;R, E extends Throwable&gt; &#123;
+        R process(StringTemplate st) throws E;
+    &#125;
+    ...
+&#125;
+</code></pre>
+<p>The code shown earlier that interpolates strings:</p>
+<pre><code>var INTER = StringTemplate.Processor.of(StringTemplate::interpolate);
+...
+String s = INTER.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code>StringTemplate.Processor&lt;String, RuntimeException&gt; INTER =
+    StringTemplate.Processor.of(StringTemplate::interpolate);
+...
+String s = INTER.&quot;\&#123;x&#125; plus \&#123;y&#125; equals \&#123;x + y&#125;&quot;;
+</code></pre>
+<p>The return type of the template processor <code>INTER</code> is specified by the first type argument, <code>String</code>. The exceptions<br>thrown by the processor are specified by the second type argument, which in this case is <code>RuntimeException</code> because this<br>processor does not throw any checked exceptions.</p>
+<p>Here is a template processor that returns not strings but, rather, instances of <code>JSONObject</code>:</p>
+<pre><code>var JSON = StringTemplate.Processor.of(
+        (StringTemplate st) -&gt; new JSONObject(st.interpolate())
+    );
+
+String name    = &quot;Joan Smith&quot;;
+String phone   = &quot;555-123-4567&quot;;
+String address = &quot;1 Maple Drive, Anytown&quot;;
+JSONObject doc = JSON.&quot;&quot;&quot;
+    &#123;
+        &quot;name&quot;:    &quot;\&#123;name&#125;&quot;,
+        &quot;phone&quot;:   &quot;\&#123;phone&#125;&quot;,
+        &quot;address&quot;: &quot;\&#123;address&#125;&quot;
+    &#125;;
+    &quot;&quot;&quot;;
+</code></pre>
+<p>The declaration of <code>JSON</code> above is equivalent to:</p>
+<pre><code>StringTemplate.Processor&lt;JSONObject, RuntimeException&gt; JSON =
+    StringTemplate.Processor.of(
+        (StringTemplate st) -&gt; new JSONObject(st.interpolate())
+    );
+</code></pre>
+<p>Compare the first type argument, <code>JSONObject</code>, to the first type argument given to <code>INTER</code> above, <code>String</code>.</p>
+<p>Users of this hypothetical <code>JSON</code> processor never see the <code>String</code> produced by <code>st.interpolate()</code>. However,<br>using <code>st.interpolate()</code> in this way risks propagating injection vulnerabilities into the JSON result. We can be prudent<br>and revise the code to check the template’s values first and throw a checked exception, <code>JSONException</code>, if a value is<br>suspicious:</p>
+<pre><code>StringTemplate.Processor&lt;JSONObject, JSONException&gt; JSON_VALIDATE =
+    (StringTemplate st) -&gt; &#123;
+        String quote = &quot;\&quot;&quot;;
+        List&lt;Object&gt; filtered = new ArrayList&lt;&gt;();
+        for (Object value : st.values()) &#123;
+            if (value instanceof String str) &#123;
+                if (str.contains(quote)) &#123;
+                    throw new JSONException(&quot;Injection vulnerability&quot;);
+                &#125;
+                filtered.add(quote + str + quote);
+            &#125; else if (value instanceof Number ||
+                       value instanceof Boolean) &#123;
+                filtered.add(value);
+            &#125; else &#123;
+                throw new JSONException(&quot;Invalid value type&quot;);
+            &#125;
+        &#125;
+        String jsonSource =
+            StringTemplate.interpolate(st.fragments(), filtered);
+        return new JSONObject(jsonSource);
+    &#125;;
+
+String name    = &quot;Joan Smith&quot;;
+String phone   = &quot;555-123-4567&quot;;
+String address = &quot;1 Maple Drive, Anytown&quot;;
+try &#123;
+    JSONObject doc = JSON_VALIDATE.&quot;&quot;&quot;
+        &#123;
+            &quot;name&quot;:    \&#123;name&#125;,
+            &quot;phone&quot;:   \&#123;phone&#125;,
+            &quot;address&quot;: \&#123;address&#125;
+        &#125;;
+        &quot;&quot;&quot;;
+&#125; catch (JSONException ex) &#123;
+    ...
+&#125;
+</code></pre>
+<p>This version of the processor throws a checked exception, so we cannot create it using the factory<br>method <code>StringTemplate.Processor::of</code>. Instead, we use a lambda expression on the right-hand side directly. In turn,<br>this means we cannot use <code>var</code> on the left-hand side because Java requires an explicit target type for the lambda<br>expression.</p>
+<p>To make it more efficient, we could <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Memoization">memoize</a> this processor by compiling the<br>template’s fragments into a <code>JSONObject</code> with placeholder values and caching the result. If the next invocation of the<br>processor uses the same fragments then it can inject the values of the embedded expressions into a fresh deep copy of<br>the cached object; there would be no intermediate <code>String</code> anywhere.</p>
+<h3 id="Safely-composing-and-executing-database-queries"><a href="#Safely-composing-and-executing-database-queries" class="headerlink" title="Safely composing and executing database queries"></a>Safely composing and executing database queries</h3><p>The template processor class below, <code>QueryProcessor</code>, first creates a SQL query string from a string template. It then<br>creates a<br>JDBC <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/20/docs/api/java.sql/java/sql/PreparedStatement.html"><code>PreparedStatement</code></a><br>from that query string and sets its parameters to the values of the embedded expressions. Finally, the processor<br>executes the <code>PreparedStatement</code> to obtain a <code>ResultSet</code>.</p>
+<pre><code>record QueryProcessor(Connection conn)
+  implements StringTemplate.Processor&lt;ResultSet, SQLException&gt; &#123;
+
+    public ResultSet process(StringTemplate st) throws SQLException &#123;
+        // 1. Replace StringTemplate placeholders with PreparedStatement placeholders
+        String query = String.join(&quot;?&quot;, st.fragments());
+
+        // 2. Create the PreparedStatement on the connection
+        PreparedStatement ps = conn.prepareStatement(query);
+
+        // 3. Set parameters of the PreparedStatement
+        int index = 1;
+        for (Object value : st.values()) &#123;
+            switch (value) &#123;
+                case Integer i -&gt; ps.setInt(index++, i);
+                case Float f   -&gt; ps.setFloat(index++, f);
+                case Double d  -&gt; ps.setDouble(index++, d);
+                case Boolean b -&gt; ps.setBoolean(index++, b);
+                default        -&gt; ps.setString(index++, String.valueOf(value));
+            &#125;
+        &#125;
+
+        // 4. Execute the PreparedStatement, returning a ResultSet
+        return ps.executeQuery();
+    &#125;
+&#125;
+</code></pre>
+<p>If we instantiate this hypothetical <code>QueryProcessor</code> for a specific <code>Connection</code>:</p>
+<pre><code>StringTemplate.Processor&lt;ResultSet, SQLException&gt; DB
+    = new QueryProcessor(... Connection ...);
+</code></pre>
+<p>then instead of the unsafe, injection-attack-prone code</p>
+<pre><code>String query = &quot;SELECT * FROM Person p WHERE p.last_name = &#39;&quot; + name + &quot;&#39;&quot;;
+ResultSet rs = conn.createStatement().executeQuery(query);
+</code></pre>
+<p>we can write the more secure and more readable code</p>
+<pre><code>ResultSet rs = DB.&quot;SELECT * FROM Person p WHERE p.last_name = \&#123;name&#125;&quot;;
+</code></pre>
+<h3 id="Simplifying-localization"><a href="#Simplifying-localization" class="headerlink" title="Simplifying localization"></a>Simplifying localization</h3><p>The <code>FMT</code> template processor, <a target="_blank" rel="noopener" href="https://openjdk.org/jeps/430#The-FMT-template-processor">shown earlier</a>, is an instance<br>of the template processor<br>class <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/util/FormatProcessor.html"><code>java.util.FormatProcessor</code></a>.<br>While <code>FMT</code> uses the default locale, it is straightforward to create a template processor for a different locale by<br>instantiating the class differently. For example, this code creates a template processor for the Thai locale:</p>
+<pre><code>Locale thaiLocale = Locale.forLanguageTag(&quot;th-TH-u-nu-thai&quot;);
+FormatProcessor THAI = new FormatProcessor(thaiLocale);
+for (int i = 1; i &lt;= 10000; i *= 10) &#123;
+    String s = THAI.&quot;This answer is %5d\&#123;i&#125;&quot;;
+    System.out.println(s);
+&#125;
+| This answer is     ๑
+| This answer is    ๑๐
+| This answer is   ๑๐๐
+| This answer is  ๑๐๐๐
+| This answer is ๑๐๐๐๐
+</code></pre>
+<h3 id="Simplifying-use-of-resource-bundles"><a href="#Simplifying-use-of-resource-bundles" class="headerlink" title="Simplifying use of resource bundles"></a>Simplifying use of resource bundles</h3><p>The template processor class below, <code>LocalizationProcessor</code>, simplifies working with resource bundles. For a given<br>locale, it maps a string to a corresponding property in a resource bundle.</p>
+<pre><code>record LocalizationProcessor(Locale locale)
+  implements StringTemplate.Processor&lt;String, RuntimeException&gt; &#123;
+
+    public String process(StringTemplate st) &#123;
+        ResourceBundle resource = ResourceBundle.getBundle(&quot;resources&quot;, locale);
+        String stencil = String.join(&quot;_&quot;, st.fragments());
+        String msgFormat = resource.getString(stencil.replace(&#39; &#39;, &#39;.&#39;));
+        return MessageFormat.format(msgFormat, st.values().toArray());
+    &#125;
+&#125;
+</code></pre>
+<p>Assuming there is a property-file resource bundle for each locale:</p>
+<pre><code># resources_en_CA.properties file
+no.suitable._.found.for._(_)=\
+    no suitable &#123;0&#125; found for &#123;1&#125;(&#123;2&#125;)
+
+# resources_zh_CN.properties file
+no.suitable._.found.for._(_)=\
+    \u5BF9\u4E8E&#123;1&#125;(&#123;2&#125;), \u627E\u4E0D\u5230\u5408\u9002\u7684&#123;0&#125;
+
+# resources_jp.properties file
+no.suitable._.found.for._(_)=\
+    &#123;1&#125;\u306B\u9069\u5207\u306A&#123;0&#125;\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093(&#123;2&#125;)
+</code></pre>
+<p>then a program can compose a localized string based upon the property:</p>
+<pre><code>var userLocale = new Locale(&quot;en&quot;, &quot;CA&quot;);
+var LOCALIZE = new LocalizationProcessor(userLocale);
+...
+var symbolKind = &quot;field&quot;, name = &quot;tax&quot;, type = &quot;double&quot;;
+System.out.println(LOCALIZE.&quot;no suitable \&#123;symbolKind&#125; found for \&#123;name&#125;(\&#123;type&#125;)&quot;);
+</code></pre>
+<p>and the template processor will map the string to the corresponding property in the locale-appropriate resource bundle:</p>
+<pre><code>no suitable field found for tax(double)
+</code></pre>
+<p>If the program instead performed</p>
+<pre><code>var userLocale = new Locale(&quot;zh&quot;, &quot;CN&quot;);
+</code></pre>
+<p>then the output would be:</p>
+<pre><code>对于tax(double), 找不到合适的field
+</code></pre>
+<p>Finally, if the program instead performed</p>
+<pre><code>var userLocale = new Locale(&quot;jp&quot;);
+</code></pre>
+<p>then the output would be:</p>
+<pre><code>taxに適切なfieldが見つかりません(double)
+</code></pre>
+<h2 id="Alternatives"><a href="#Alternatives" class="headerlink" title="Alternatives"></a>Alternatives</h2><ul>
+<li><p>When a string template appears without a template processor then we could simply perform basic interpolation. However,<br>this choice would violate the safety goal. It would be too tempting to construct SQL queries using interpolation, for<br>example, and this would in the aggregate reduce the safety of Java programs. Always requiring a template processor<br>ensures that the developer at least recognizes the possibility of domain-specific rules in a string template.</p>
+</li>
+<li><p>The syntax of template expressions — with the template processor appearing first — is not strictly necessary. It would<br>be possible to denote the template processor as an argument to <code>StringTemplate::process</code>. For example:</p>
+<pre><code>String s = &quot;The answer is %5d\&#123;i&#125;&quot;.process(FMT);
+</code></pre>
+<p>Having the template processor appear first is preferable because the result of evaluating the template expression is<br><em>entirely</em> dependent on the operation of the template processor.</p>
+</li>
+<li><p>For the syntax of embedded expressions we considered using <code>$&#123;...&#125;</code>, but that would require a tag on string<br>templates (either a prefix or a delimiter other than <code>&quot;</code>) to avoid conflicts with legacy code. We also<br>considered <code>\[...]</code> and <code>\(...)</code>, but <code>[ ]</code> and <code>( )</code> are likely to appear in embedded expressions; <code>&#123; &#125;</code> is less<br>likely to appear, so visually determining the start and end of embedded expressions will be easier.</p>
+</li>
+<li><p>It would be possible to bake format specifiers into string templates, as done in C#:</p>
+<pre><code>var date = DateTime.Now;
+Console.WriteLine($&quot;The time is &#123;date:HH:mm&#125;&quot;);
+</code></pre>
+<p>but this would require changes to the Java Language Specification any time a new format specifier is introduced.</p>
+</li>
+</ul>
+<h2 id="Risks-and-Assumptions"><a href="#Risks-and-Assumptions" class="headerlink" title="Risks and Assumptions"></a>Risks and Assumptions</h2><p>The implementation<br>of <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/util/FormatProcessor.html"><code>java.util.FormatProcessor</code></a><br>depends strongly<br>upon <a target="_blank" rel="noopener" href="https://cr.openjdk.org/~jlaskey/templates/docs/api/java.base/java/util/Formatter.html"><code>java.util.Formatter</code></a>,<br>which may require a significant rewrite.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://zihlu.wang">Zihlu Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zihlu.wang/2023/04/07/jep430-string-templates-in-java/">https://zihlu.wang/2023/04/07/jep430-string-templates-in-java/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zihlu.wang" target="_blank">编程精灵</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JavaSE/">JavaSE</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/28/install-local-dns-server/" title="安装本地 DNS 服务器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">安装本地 DNS 服务器</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/02/add-private-npmregestry/" title="添加私有 (p)npm 仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">添加私有 (p)npm 仓库</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/01/31/install-gradle/" title="安装 Gradle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-31</div><div class="title">安装 Gradle</div></div></a></div><div><a href="/2023/01/29/install-jdk/" title="安装 JDK"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-29</div><div class="title">安装 JDK</div></div></a></div><div><a href="/2023/01/30/install-maven/" title="安装 Maven"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-30</div><div class="title">安装 Maven</div></div></a></div><div><a href="/2024/02/01/migrate-from-maven-to-gradle/" title="将 Java 类库由 Maven 转换为 Gradle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-01</div><div class="title">将 Java 类库由 Maven 转换为 Gradle</div></div></a></div><div><a href="/2024/11/10/java-code-optimisations/" title="Java Code Optimisations"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-10</div><div class="title">Java Code Optimisations</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zihlu Wang</div><div class="author-info__description">编程精灵是一个专注于软件开发的中文在线博客，通过分享个人编程经验和心得，为广大开发者提供有趣的信息和见解。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zihluwang"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><a target="_blank" rel="noopener" href="https://t.me/+4o6OAPrTrJ1lZjYx">点击链接加入 Telegram 群组</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK-21-%E6%96%B0%E5%8A%9F%E8%83%BD%E9%A2%84%E8%A7%88-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2-JEP430"><span class="toc-number">1.</span> <span class="toc-text">JDK-21 新功能预览 - 模板字符串 ([JEP430])</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.1.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Goals"><span class="toc-number">1.2.</span> <span class="toc-text">Goals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Non-Goals"><span class="toc-number">1.3.</span> <span class="toc-text">Non-Goals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation"><span class="toc-number">1.4.</span> <span class="toc-text">Motivation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-interpolation"><span class="toc-number">1.5.</span> <span class="toc-text">String interpolation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String-interpolation-is-dangerous"><span class="toc-number">1.5.1.</span> <span class="toc-text">String interpolation is dangerous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Can-we-do-better"><span class="toc-number">1.5.2.</span> <span class="toc-text">Can we do better?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.6.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-STR-template-processor"><span class="toc-number">1.6.1.</span> <span class="toc-text">The STR template processor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multi-line-template-expressions"><span class="toc-number">1.6.2.</span> <span class="toc-text">Multi-line template expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-FMT-template-processor"><span class="toc-number">1.6.3.</span> <span class="toc-text">The FMT template processor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ensuring-safety"><span class="toc-number">1.6.4.</span> <span class="toc-text">Ensuring safety</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax-and-semantics"><span class="toc-number">1.6.5.</span> <span class="toc-text">Syntax and semantics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-literals-inside-template-expressions"><span class="toc-number">1.6.6.</span> <span class="toc-text">String literals inside template expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#User-defined-template-processors"><span class="toc-number">1.6.7.</span> <span class="toc-text">User-defined template processors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-template-processor-API"><span class="toc-number">1.6.8.</span> <span class="toc-text">The template processor API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Safely-composing-and-executing-database-queries"><span class="toc-number">1.6.9.</span> <span class="toc-text">Safely composing and executing database queries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simplifying-localization"><span class="toc-number">1.6.10.</span> <span class="toc-text">Simplifying localization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simplifying-use-of-resource-bundles"><span class="toc-number">1.6.11.</span> <span class="toc-text">Simplifying use of resource bundles</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alternatives"><span class="toc-number">1.7.</span> <span class="toc-text">Alternatives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Risks-and-Assumptions"><span class="toc-number">1.8.</span> <span class="toc-text">Risks and Assumptions</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/10/java-code-optimisations/" title="Java Code Optimisations">Java Code Optimisations</a><time datetime="2024-11-10T10:03:15.000Z" title="发表于 2024-11-10 18:03:15">2024-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/27/mac-terminal-hostname-displayed-as-10-172-or-192/" title="Mac 终端的主机名显示10，172或192">Mac 终端的主机名显示10，172或192</a><time datetime="2024-02-27T07:35:12.000Z" title="发表于 2024-02-27 15:35:12">2024-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/01/migrate-from-maven-to-gradle/" title="将 Java 类库由 Maven 转换为 Gradle">将 Java 类库由 Maven 转换为 Gradle</a><time datetime="2024-02-01T04:48:03.000Z" title="发表于 2024-02-01 12:48:03">2024-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/31/install-gradle/" title="安装 Gradle">安装 Gradle</a><time datetime="2024-01-31T11:07:00.000Z" title="发表于 2024-01-31 19:07:00">2024-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/28/install-local-dns-server/" title="安装本地 DNS 服务器">安装本地 DNS 服务器</a><time datetime="2023-06-28T02:45:56.000Z" title="发表于 2023-06-28 10:45:56">2023-06-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zihlu Wang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'twikoo-comments-5gvfhs7r3850d5f7',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
