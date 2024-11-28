@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "lunaria:build": "lunaria build",
+    "lunaria:preview": "lunaria preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@lunariajs/core": "^0.1.1",
     "prettier": "^3.4.1",
     "vitepress": "^1.5.0"
   }

@@ -14,6 +14,20 @@ function navEnGb(): DefaultTheme.NavItem[] {
   ]
 }
 
+function navZhHant(): DefaultTheme.NavItem[] {
+  return [
+    {
+      text: "贴文",
+      link: "/zh-hant/posts/",
+      activeMatch: "/zh-hant/posts/",
+    }, {
+      text: "JDevKit",
+      link: "/zh-hant/jdevkit/",
+      activeMatch: "/zh-hant/jdevkit/",
+    },
+  ]
+}
+
 export default defineConfig({
   title: "Code Wanderer",
 
@@ -44,11 +58,11 @@ export default defineConfig({
       description: "探索程式設計的藝術與科學，無限可能的起點。",
 
       themeConfig: {
-        nav: navEnGb(),
+        nav: navZhHant(),
 
         footer: {
-          message: "",
-          copyright: `Copyright © 2024-${new Date().getFullYear()} Zihlu Wang`,
+          message: "本部落格所有文章除特別聲明外，均採用 CC-BY-NC-SA 4.0 協議。轉載請註明來自 Code Wanderer。",
+          copyright: `版權所有 © 2024-${new Date().getFullYear()} Zihlu Wang`,
         },
       },
     },
