@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@lunariajs/core": "^0.1.1",
     "prettier": "^3.4.1",
     "vitepress": "^1.5.0"
   }
