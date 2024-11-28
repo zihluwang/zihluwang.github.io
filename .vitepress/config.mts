@@ -4,12 +4,12 @@ function navEnGb(): DefaultTheme.NavItem[] {
   return [
     {
       text: "Posts",
-      link: "/posts/",
-      activeMatch: "/posts/",
+      link: "/en-gb/posts/",
+      activeMatch: "/en-gb/posts/",
     }, {
       text: "JDevKit",
-      link: "/jdevkit/",
-      activeMatch: "/jdevkit/",
+      link: "/en-gb/jdevkit/",
+      activeMatch: "/en-gb/jdevkit/",
     },
   ]
 }
@@ -17,7 +17,7 @@ function navEnGb(): DefaultTheme.NavItem[] {
 function navZhHant(): DefaultTheme.NavItem[] {
   return [
     {
-      text: "贴文",
+      text: "貼文",
       link: "/zh-hant/posts/",
       activeMatch: "/zh-hant/posts/",
     }, {
