@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/@lunariajs/core/config.schema.json",
+  "repository": {
+    "name": "zihluwang/zihluwang.github.io"
+  },
+  "files": [
+    {
+      "location": ".vitepress/config/{en-gb,zh-hant}.ts",
+      "pattern": ".vitepress/config/@lang.ts",
+      "type": "universal"
+    },
+    {
+      "location": "**/*.md",
+      "pattern": "@lang/@path",
+      "type": "universal"
+    }
+  ],
+  "defaultLocale": {
+    "label": "British English",
+    "lang": "en-GB"
+  },
+  "locales": [
+    {
+      "label": "繁體中文",
+      "lang": "zh-hant"
+    },
+    {
+      "label": "British English",
+      "lang": "en-GB"
+    }
+  ],
+  "outDir": ".vitepress/dist/_translations",
+  "ignoreKeywords": ["lunaria-ignore"]
+}
