@@ -8,11 +8,11 @@ hero:
   tagline: Unlocking the art of coding.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: JDevKit
+      link: /jdevkit
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Posts
+      link: /posts
 
 features:
   - title: Feature A

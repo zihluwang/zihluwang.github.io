@@ -7,11 +7,11 @@ hero:
   tagline: 解開程式編碼的藝術。
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: JDevKit
+      link: /zh-hant/jdevkit
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 貼文
+      link: /zh-hant/posts
 
 features:
   - title: Feature A

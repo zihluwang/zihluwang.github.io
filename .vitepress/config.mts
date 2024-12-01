@@ -50,6 +50,30 @@ export default defineConfig({
           message: "All posts on this blog are licensed under the CC-BY-NC-SA 4.0 licence unless otherwise stated. Reprinted with permission from Code Wanderer.",
           copyright: `Copyright © 2024-${new Date().getFullYear()} Zihlu Wang`,
         },
+
+        sidebar: {
+          "/posts/": {
+            base: "/posts/",
+            items: [
+              {
+
+              }
+            ]
+          },
+          "/jdevkit/": {
+            base: "/jdevkit/",
+            items: [
+              {
+                text: "About",
+                link: "index"
+              },
+              {
+                text: "DevKit :: Core",
+                link: "devkit-core"
+              }
+            ]
+          }
+        }
       },
     },
     "zh-hant": {
