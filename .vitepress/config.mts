@@ -56,7 +56,8 @@ export default defineConfig({
             base: "/posts/",
             items: [
               {
-
+                text: "Mac Terminal Hostname Displayed as 10, 172 or 192",
+                link: "/mac-terminal-hostname-displayed-as-10-172-or-192"
               }
             ]
           },
@@ -83,6 +84,31 @@ export default defineConfig({
 
       themeConfig: {
         nav: navZhHant(),
+
+        sidebar: {
+          "/zh-hant/posts/": {
+            base: "/zh-hant/posts/",
+            items: [
+              {
+                text: "Mac 終端主機名稱顯示為 10，172 或 192",
+                link: "/mac-terminal-hostname-displayed-as-10-172-or-192"
+              }
+            ]
+          },
+          "/jdevkit/": {
+            base: "/jdevkit/",
+            items: [
+              {
+                text: "About",
+                link: "index"
+              },
+              {
+                text: "DevKit :: Core",
+                link: "devkit-core"
+              }
+            ]
+          }
+        },
 
         footer: {
           message: "本部落格所有文章除特別聲明外，均採用 CC-BY-NC-SA 4.0 協議。轉載請註明來自 Code Wanderer。",
